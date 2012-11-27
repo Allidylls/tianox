@@ -21,9 +21,9 @@
 //-------------------------------------------------------------
 
 // @requires Class.js
+// @requires Function.js
 // @requires Window.js
 // @requires App.js
-// @requires Device.js
 
 Tian.Embeded = Tian.Class({
     // the window running with this application
@@ -35,6 +35,9 @@ Tian.Embeded = Tian.Class({
     // dictionaries hash for internationalization
     // structure: dictionaries[code][key] = value
     dictionaries: null,
+    
+    // confirm message on close event
+    closeConfirm: '',
 
     // constructor
     initialize: function (options) {
@@ -46,6 +49,7 @@ Tian.Embeded = Tian.Class({
         
         // register event handlers of the application's window
         if (this.theWin) {
+            this.theWin.setCloseConfirm(this.closeConfirm);
             this.theWin.onselect    = top.Tian.Function.bind(this.onSelect, this);
             this.theWin.ondeselect  = top.Tian.Function.bind(this.onDeselect, this);
             this.theWin.oniconize   = top.Tian.Function.bind(this.onIconize, this);

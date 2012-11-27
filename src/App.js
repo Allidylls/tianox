@@ -2,13 +2,13 @@
 
 /**
  * @requires OS.js
+ * @requires DB.js
+ * @requires Lang.js
  */
 
 // extend languages
-Tian.Lang.add('en', 'txApp', 'Tian Embeded Application');
-Tian.Lang.add('en', 'txAppConfirm', 'Press [OK] to close, or [Cancel] to minimize the window.');
-Tian.Lang.add('zh-CN', 'txApp', '未然嵌入式应用');
-Tian.Lang.add('zh-CN', 'txAppConfirm', '按【确定】关闭，或按【取消】最小化窗口。');
+Tian.Lang.add('en', 'txApp', 'Embeded Application');
+Tian.Lang.add('zh-CN', 'txApp', '嵌入式应用');
 
 /**
  * Class: Tian.App
@@ -179,8 +179,7 @@ Tian.App = Tian.Class({
             height: wh ? wh : this.height,
             x: wx ? wx : null,
             y: wy ? wy : null,
-            iconImageURL: this.icon,
-            closeConfirm: Tian.i18n('txAppConfirm')
+            iconImageURL: this.icon
         });
         
         // listen window events

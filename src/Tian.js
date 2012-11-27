@@ -2,7 +2,7 @@
 //=============================================================
 // Tian ECMAScript Applications Framework
 //
-// Copyright 2012-2012 by yantaotian@gmail.com
+// Copyright 2012-2012 by TIAN YANTAO
 //-------------------------------------------------------------
 
 var Tian = {};

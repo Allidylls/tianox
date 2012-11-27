@@ -499,9 +499,9 @@ Tian.Events = Tian.Class({
      *           if (Tian.Event.element(evt).className === "foo") {
      *               propagate = false;
      *               var target = this.target;
-     *               target.triggerEvent("foostart");
+     *               target.emit("foostart");
      *               window.setTimeout(function() {
-     *                   target.triggerEvent("fooend");
+     *                   target.emit("fooend");
      *               }, 1000);
      *           }
      *           return propagate;
@@ -786,18 +786,18 @@ Tian.Events = Tian.Class({
     },
 
     /**
-     * APIMethod: triggerEvent
+     * APIMethod: emit
      * Trigger a specified registered event.  
      * 
      * Parameters:
      * type - {String} 
-     * evt - {Event}
+     * evt - {Event - {object, element, type}}
      *
      * Returns:
      * {Boolean} The last listener return.  If a listener returns false, the
      *     chain of listeners will stop getting called.
      */
-    triggerEvent: function (type, evt) {
+    emit: function (type, evt) {
         var listeners = this.listeners[type];
 
         // fast path
@@ -839,7 +839,7 @@ Tian.Events = Tian.Class({
 
     /**
      * Method: handleBrowserEvent
-     * Basically just a wrapper to the triggerEvent() function, but takes 
+     * Basically just a wrapper to the emit() function, but takes 
      *     care to set a property 'xy' on the event with the current mouse 
      *     position.
      *
@@ -870,7 +870,7 @@ Tian.Events = Tian.Class({
         if (this.includeXY) {
             evt.xy = this.getMousePosition(evt);
         } 
-        this.triggerEvent(type, evt);
+        this.emit(type, evt);
     },
 
     /**

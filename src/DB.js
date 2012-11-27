@@ -79,10 +79,6 @@
  **/
 
 (function($){
-    if(!$ || !($.JSON || Object.toJSON || window.JSON)){
-        throw new Error("Tian needs to be loaded before jStorage!");
-    }
-
     var
         /* This is the object, that holds the cached values */
         _storage = {},

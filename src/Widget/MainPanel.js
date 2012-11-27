@@ -7,9 +7,7 @@
 
 // extend languages
 Tian.Lang.add('en', 'txMainPanelTitle', 'Main Panel');
-Tian.Lang.add('en', 'txMainPanelConfirm', 'Press [OK] to close, or [Cancel] to minimize the window.');
 Tian.Lang.add('zh-CN', 'txMainPanelTitle', '系统面板');
-Tian.Lang.add('zh-CN', 'txMainPanelConfirm', '按【确定】关闭，或按【取消】最小化窗口。');
 
 /**
  * Class: Tian.Widget.MainPanel
@@ -118,8 +116,7 @@ Tian.Widget.MainPanel = Tian.Class(Tian.Widget, {
             height: wh ? wh : this.height,
             x: wx ? wx : null,
             y: wy ? wy : null,
-            iconImageURL: (this.getOS().getImagePath() + 'main_icon.png'),
-            closeConfirm: Tian.i18n('txMainPanelConfirm')
+            iconImageURL: (this.getOS().getImagePath() + 'main_icon.png')
         });
         this.windowOpened = true;
         

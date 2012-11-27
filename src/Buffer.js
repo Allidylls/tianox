@@ -9,12 +9,7 @@
 //-------------------------------------------------------------
 
 (function(global) {
-    if (typeof global !== 'object' ||
-        typeof global.Class !== 'function' ||
-        typeof global.Array !== 'object') {
-        return;
-    }
-    
+
 //=============================================================
 // private constants and static functions
 //-------------------------------------------------------------

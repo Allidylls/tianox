@@ -314,8 +314,6 @@ Tian.Window = Tian.Class({
         if (this.closeConfirm) {
             if (window.confirm(this.closeConfirm)) {
                 this.close();
-            } else {
-                this._iconify();
             }
         } else {
             this.close();
@@ -562,6 +560,10 @@ Tian.Window = Tian.Class({
             if (this.components.iconImage) this.components.iconImage.src = iconUrl;
             if (this.taskbarIconImage) this.taskbarIconImage.src = iconUrl;
         }
+    },
+    
+    setCloseConfirm: function (str) {
+        this.closeConfirm = str;
     },
     
     setMovable: function(v) { 
