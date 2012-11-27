@@ -280,11 +280,9 @@ Tian.Event = {
         if (elementObservers) {
             for(var i = elementObservers.length-1; i >= 0; i--) {
                 var entry = elementObservers[i];
-                var args = new Array(entry.element,
-                                     entry.name,
-                                     entry.observer,
-                                     entry.useCapture);
-                var removed = Tian.Event.stopObserving.apply(this, args);
+                Tian.Event.stopObserving.apply(this, [
+                    entry.element, entry.name, entry.observer, entry.useCapture
+                ]);
             }
         }
     },
@@ -362,8 +360,7 @@ Tian.Event = {
         if (Tian.Event && Tian.Event.observers) {
             for (var cacheID in Tian.Event.observers) {
                 var elementObservers = Tian.Event.observers[cacheID];
-                Tian.Event._removeElementObservers.apply(this, 
-                                                           [elementObservers]);
+                Tian.Event._removeElementObservers.apply(this, [elementObservers]);
             }
             Tian.Event.observers = false;
         }
@@ -860,7 +857,7 @@ Tian.Events = Tian.Class({
             var num = touches.length;
             var touch;
             for (var i=0; i<num; ++i) {
-                touch = touches[i];
+                touch = this.getTouchClientXY(touches[i]);
                 x += touch.clientX;
                 y += touch.clientY;
             }
@@ -872,6 +869,43 @@ Tian.Events = Tian.Class({
         } 
         this.emit(type, evt);
     },
+    
+    /**
+     * Method: getTouchClientXY
+     * WebKit has a few bugs for clientX/clientY. This method detects them
+     * and calculate the correct values.
+     *
+     * Parameters:
+     * evt - {Touch} a Touch object from a TouchEvent
+     * 
+     * Returns:
+     * {Object} An object with only clientX and clientY properties with the
+     * calculated values.
+     */
+    getTouchClientXY: function (evt) {
+        // txMochWin is to override window, used for testing
+        var winPageX = window.pageXOffset || 0,
+            winPageY = window.pageYOffset || 0,
+            x = evt.clientX,
+            y = evt.clientY;
+        
+        if (evt.pageY === 0 && Math.floor(y) > Math.floor(evt.pageY) ||
+            evt.pageX === 0 && Math.floor(x) > Math.floor(evt.pageX)) {
+            // iOS4 include scroll offset in clientX/Y
+            x = x - winPageX;
+            y = y - winPageY;
+        } else if (y < (evt.pageY - winPageY) || x < (evt.pageX - winPageX) ) {
+            // Some Android browsers have totally bogus values for clientX/Y
+            // when scrolling/zooming a page
+            x = evt.pageX - winPageX;
+            y = evt.pageY - winPageY;
+        }
+        
+        return {
+            clientX: x,
+            clientY: y
+        };
+    },
 
     /**
      * APIMethod: clearMouseCache
@@ -882,18 +916,8 @@ Tian.Events = Tian.Class({
     clearMouseCache: function() { 
         this.element.scrolls = null;
         this.element.lefttop = null;
-        // Tian.pagePosition needs to use
-        // element. getBoundingClientRect to correctly calculate the offsets
-        // for the iPhone, but once the page is scrolled, getBoundingClientRect
-        // returns incorrect offsets. So our best bet is to not invalidate the
-        // offsets once we have them, and hope that the page was not scrolled
-        // when we did the initial calculation.
-        var body = document.body;
-        if (body && !((body.scrollTop != 0 || body.scrollLeft != 0) &&
-                                    navigator.userAgent.match(/iPhone/i))) {
-            this.element.offsets = null;
-        }
-    },      
+        this.element.offsets = null;
+    },
 
     /**
      * Method: getMousePosition
@@ -916,8 +940,8 @@ Tian.Events = Tian.Class({
         if (!this.element.scrolls) {
             var viewportElement = Tian.getViewportElement();
             this.element.scrolls = [
-                viewportElement.scrollLeft,
-                viewportElement.scrollTop
+                window.pageXOffset || viewportElement.scrollLeft,
+                window.pageYOffset || viewportElement.scrollTop
             ];
         }
 
