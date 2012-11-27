@@ -1,10 +1,4 @@
-
-//=============================================================
-// Tian ECMAScript Applications Framework
-//
-// Copyright 2012-2012 by TIAN YANTAO
-//-------------------------------------------------------------
-
+// The global namespace
 var Tian = {};
 
 //=============================================================
@@ -673,8 +667,5 @@ Tian.applyDefaults = function(to, from) {
 
     // exports api
     global.md5 = md5;
-})(window.Tian);
+})(Tian); // end of Tian.md5
 
-//=============================================================
-// End of Tian defination
-//-------------------------------------------------------------

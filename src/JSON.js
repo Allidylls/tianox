@@ -493,4 +493,4 @@
             throw new SyntaxError('Tian.JSON.parse');
         };
     }
-}(window.Tian));
+})(Tian);

@@ -534,4 +534,4 @@
     // Initialize jStorage
     _init();
 
-})(window.Tian);
+})(Tian);

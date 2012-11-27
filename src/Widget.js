@@ -1,5 +1,3 @@
-/* Copyright (c) 2012-2012 by yantaotian@gmail.com */
-
 /**
  * @requires Class.js
  */

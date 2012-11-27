@@ -1,5 +1,3 @@
-/* Copyright (c) 2012-2012 by Tian Yantao */
-
 /**
  * @requires Tian.js
  * @requires Class.js

@@ -669,5 +669,5 @@ global.Buffer = global.Class({
 
 // end of exports
 
-})(window.Tian);
+})(Tian);
 

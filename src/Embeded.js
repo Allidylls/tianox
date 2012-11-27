@@ -1,4 +1,3 @@
-
 //=============================================================
 // Tian Embeded Applications Framework
 //
@@ -17,7 +16,7 @@
 //   return new MyApp(options);
 // }
 //
-// Copyright 2011-2012 yantaotian@gmail.com
+// Copyright 2011-2012 allidylls@gmail.com
 //-------------------------------------------------------------
 
 // @requires Class.js
