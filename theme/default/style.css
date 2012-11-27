@@ -1,0 +1,597 @@
+html, body {
+    margin:0;
+    width:100%;
+    height:100%;
+    background: #E6E6E6 url(img/gradient_texture.png) repeat 0 0;
+}
+
+/* Tian OS canvas style */
+.txOS {
+    z-index: 0;
+    overflow: hidden;
+    position: relative;
+    margin:0;
+    width:100%;
+    height:100%;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+}
+
+/* disable select for widget */
+.txWidgetNoSelect {
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+           -o-user-select: none;
+              user-select: none;
+}
+
+/* Tian title bar */
+.txWidgetTitleBar {
+    position: absolute;
+    top: 2px;
+    left: 6px;
+    right: 64px;
+    height: 32px;
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 30px;
+}
+.txWidgetTitleBarWelcome {
+    font-size: 16px;
+    font-weight: bold;
+}
+.txWidgetTitleBarAccount {
+    color: blue;
+    font-size: 16px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.txWidgetTitleBarNotification {
+    font-size: 14px;
+    margin-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* Tian taskbar */
+.txWidgetTaskbar {
+    position: absolute;
+    bottom: 16px;
+    left: 80px;
+    right: 80px;
+    height: 36px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Tian main panel */
+.txWidgetMainPanel {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background-image: url(img/main_icon.png);
+    background-repeat: no-repeat;
+}
+.txWidgetMainPanelContent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    overflow: auto;
+    border-radius: 0 0 5px 5px;
+	-moz-border-radius: 0 0 5px 5px;
+	-webkit-border-radius: 0 0 5px 5px;
+    border: none;
+}
+
+/* Tian embeded application */
+.txApp {
+    float: left;
+    text-align: left;
+    margin: 0px;
+    padding: 5px;
+    width: 160px;
+    height: 32px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.txApp > img {
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    float: left;
+    border: 0 none;
+}
+.txApp > p {
+    height: 32px;
+    font-size: 14px;
+    padding-left: 5px;
+    margin: 0;
+    display: table-cell;
+    vertical-align: middle;
+}
+div.txApp:hover {
+    background-color: #e5ecf9;
+}
+
+/* Tian Windowing System */
+.txWindow, .txWindowActive {
+	position: absolute;
+	border-radius: 9px 9px 0 0;
+	-moz-border-radius: 9px 9px 0 0;
+	-webkit-border-radius: 9px 9px 0 0;
+}
+.txWindow {
+	border: solid 3px #BBBBBB;
+	background-color: #BBBBBB;
+}
+.txWindowActive {
+    border: solid 3px #6BADF6;
+    background-color: #6BADF6;
+}
+.txWinTitle {
+	position: relative;
+	margin: 0px;
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+	height: 24px;
+	text-align: center;
+}
+.txWindow .txWinTitle {
+    background-color: #BBBBBB;
+	border-bottom: solid 3px #BBBBBB;
+}
+.txWindowActive .txWinTitle {
+    background-color: #6BADF6;
+	border-bottom: solid 3px #6BADF6;
+}
+.txWinIconImage {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 24px;
+    height: 24px;
+    cursor: nw-resize;
+    border-radius: 5px 0 0 0;
+	-moz-border-radius: 5px 0 0 0;
+	-webkit-border-radius: 5px 0 0 0;
+}
+.txWinTitleText {
+    position: absolute;
+    top: 0px;
+    left: 25px;
+    right: 72px;
+    width: auto;
+    height: 20px;
+    font-size: 14px;
+    padding-top: 4px;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: move;
+}
+.txWinCloseBox, .txWinMaxBox, .txWinMinBox {
+    position: absolute;
+    top: 0px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background-image: url(img/win_icons.png);
+    background-repeat: no-repeat;
+}
+.txWinCloseBox {
+    right: 0px;
+    background-position: -48px 0px;
+}
+.txWinMaxBox {
+    right: 24px;
+    background-position: -24px 0px;
+}
+.txWinMinBox {
+    right: 48px;
+    background-position: 0px 0px;
+}
+.txWinLoading {
+    position: absolute;
+    top: 0px;
+    right: 72px;
+    width: 24px;
+    height: 24px;
+    background-image: url(img/win_loading.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    visibility: hidden;
+}
+.txWinContent {
+    position:relative;
+	background-color: #fff;
+	padding: 0px;
+	overflow: hidden;
+}
+.txWinContentSafari {
+    position:relative;
+	background-color: #fff;
+	padding: 0px;
+	overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.txWinFrame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+    border: none;
+}
+.txWinTaskBarIcon, .txWinTaskBarIconActive{
+	height:32px;
+	margin-right:5px;
+	display: inline-block;
+	vertical-align: middle;
+	cursor:pointer;
+	padding:0px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+.txWinTaskBarIcon{
+	border: 2px solid #BBBBBB;
+	background-color: transparent;
+}
+div.txWinTaskBarIcon:hover{
+	border: 2px solid #6BADF6;
+    background-color: white;
+}
+.txWinTaskBarIconActive{
+	border: 2px solid #6BADF6;
+	background-color: #6BADF6;
+}
+.txWinTaskBarIcon img, .txWinTaskBarIconActive img{
+	width: 32px;
+	height: 32px;
+	margin: 0px 2px -3px 2px;
+}
+.txWinTaskBarIcon span, .txWinTaskBarIconActive span {
+    display: none;
+}
+
+
+/* OpenLayers and Toolkits */
+div.olMap {
+    z-index: 0;
+    padding: 0!important;
+    margin: 0!important;
+    cursor: default;
+    background-color: #B5D0D0;
+}
+
+div.olMapViewport {
+    text-align: left;
+}
+
+div.olLayerDiv {
+   -moz-user-select: none;
+   -khtml-user-select: none;
+}
+
+/**
+ * Google maps
+ */
+.olLayerGoogleCopyright {
+    right: 36px;
+    bottom: 0px;
+    left: auto;
+}
+.olLayerGooglePoweredBy {
+    width: 64px;
+    height: 30px;
+    left: 96px;
+    bottom: 2px;
+    display: block;
+    position: absolute;
+    background-image: url(http://maps.gstatic.com/intl/en_ALL/mapfiles/poweredby.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.olLayerGoogleV3.olLayerGoogleCopyright {
+    bottom: 0px;
+    right: 36px !important;
+}
+.olLayerGoogleV3.olLayerGooglePoweredBy {
+    left: 2px;
+    bottom: 0px !important;
+}
+
+/**
+ * Attribution
+ */
+.olControlAttribution {
+    font-size: 14px;
+    font-weight: normal;
+    right: 36px; 
+    bottom: 0px;
+    position: absolute; 
+    display: block;
+}
+
+/**
+ * Scale
+ */
+.olControlScale {
+    right: 3px;
+    bottom: 3em;
+    display: block;
+    position: absolute;
+    font-size: smaller;
+}
+
+/**
+ * Scale line
+ */
+.olControlScaleLine {
+   display: block;
+   position: absolute;
+   left: 2px;
+   bottom: 2px;
+   font-size: 12px;
+   font-weight: normal;
+   color: blue;
+}
+.olControlScaleLineBottom {
+   border: solid 2px blue;
+   border-bottom: none;
+   margin-top:-2px;
+   text-align: center;
+   white-space: nowrap;
+   overflow: hidden;
+   height: 15px;
+}
+.olControlScaleLineTop {
+   border: solid 2px blue;
+   border-top: none;
+   text-align: center;
+   white-space: nowrap;
+   overflow: hidden;
+   height: 15px;
+}
+
+/**
+ * Permanent link
+ */
+.olControlPermalink {
+    right: 3px;
+    bottom: 1.5em;
+    display: block;
+    position: absolute;
+    font-size: smaller;
+} 
+
+/**
+ * Mouse position
+ */
+div.olControlMousePosition {
+    position: absolute;
+    bottom: 16px;
+    right: 36px;
+    display: block;
+    font-size: 14px;
+    font-weight: normal;
+    color: blue;
+}
+
+/**
+* Loading Panel
+*/
+.olControlLoadingPanel {
+    background-image: url(img/loading.gif);
+    position: absolute;
+    top: 2px;
+    right: 36px;
+    width: 32px;
+    height: 32px;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: none;
+}
+
+.olLayerGeoRSSTitle {
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+}
+.olLayerGeoRSSDescription {
+    float: left;
+    width:100%;
+    overflow:auto;
+    font-size:12px;
+    margin-top: 5px;
+}
+.olLayerGeoRSSClose {
+    float: right;
+    color: red;
+    font-size: 12px;
+    margin-right:6px;
+    font-family: monospace;
+    cursor: pointer;
+}
+
+.olHandlerBoxZoomBox {
+    border: 2px solid red;
+    position: absolute;
+    background-color: white;
+    opacity: 0.50;
+    font-size: 1px;
+    filter: alpha(opacity=50);
+}
+.olHandlerBoxSelectFeature {
+    border: 2px solid blue;
+    position: absolute;
+    background-color: white;
+    opacity: 0.50;
+    font-size: 1px;
+    filter: alpha(opacity=50);
+}
+
+.olControlNoSelect {
+ -moz-user-select: none;
+ -khtml-user-select: none;
+}
+
+/**
+ * Layer switcher
+ */
+.olControlLayerSwitcher {
+    position: absolute;
+    top: 25px;
+    right: 0;
+    width: 20em;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-bottom: 3px;
+    font-size: smaller;
+    color: white;
+    background-color: transparent;
+}
+.olControlLayerSwitcher .layersDiv {
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-right: 75px;
+    background-color: blue;
+    width: 100%;
+    height: 100%;
+}
+.olControlLayerSwitcher .layersDiv .baseLbl,
+.olControlLayerSwitcher .layersDiv .dataLbl {
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-bottom: 3px;
+}
+.olControlLayerSwitcher .layersDiv .baseLayersDiv,
+.olControlLayerSwitcher .layersDiv .dataLayersDiv {
+    padding-left: 10px;
+}
+.olControlLayerSwitcher .maximizeDiv,
+.olControlLayerSwitcher .minimizeDiv {
+    top: 5px;
+    right: 0;
+    cursor: pointer;
+}
+
+/**
+ * Weiran Overview map
+ */
+.olControlWeOverviewMapContainer {
+    position: absolute;
+    bottom: 0px;
+    right: 2px;
+}
+.olControlWeOverviewMapElement {
+    padding: 3px;
+    background-color: blue;
+    -moz-border-radius: 0.6em 0 0 0;
+}
+.olControlWeOverviewMapMinimizeButton,
+.olControlWeOverviewMapMaximizeButton {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    background-image: url(img/overview_map.png);
+}
+.olControlWeOverviewMapMaximizeButton {
+    background-position: 0 0;
+}
+.olControlWeOverviewMapMinimizeButton {
+    background-position: 0 -32px;
+}
+.olControlWeOverviewMapExtentRectangle {
+    overflow: hidden;
+    background-image: url(img/blank.gif);
+    cursor: move;
+    border: 2px dotted red;
+}
+.olControlWeOverviewMapRectReplacement {
+    overflow: hidden;
+    cursor: move;
+    background-image: url(img/overview_replacement.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/*
+ * Popup
+ */
+.olPopup {
+}
+
+.olPopupContent {
+    margin: 0px;
+    padding:5px;
+    overflow: auto;
+} 
+.olPopupCloseBox {
+    background-image: url(img/popups.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    cursor: pointer;
+}
+.olFramedCloudPopupContent {
+    padding: 5px;
+    overflow: auto;
+}
+
+.olImageLoadError {
+    background-color: blue;
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* IE */
+}
+
+/**
+ * Cursor styles
+ */
+.olCursorWait {
+    cursor: wait;
+}
+.olDragDown {
+    cursor: move;
+}
+.olDrawBox {
+    cursor: crosshair;
+}
+.olControlDragFeatureOver {
+    cursor: move;
+}
+.olControlDragFeatureActive.olControlDragFeatureOver.olDragDown {
+    cursor: -moz-grabbing;
+}
+
+.olBingAttribution {
+    color: #DDD;
+}
+.olBingAttribution.road {
+    color: #333;
+}
+
+/**
+ * Animations
+ */
+.olLayerGrid .olTileImage {
+    -webkit-transition: opacity 0.2s linear;
+    -moz-transition: opacity 0.2s linear;
+    -o-transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear;
+}
+

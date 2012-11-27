@@ -1,0 +1,49 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src='../build/tian.js'></script>
+<link rel="stylesheet" href="./style.css" type="text/css" />
+<script>
+var wm = null, v, w, x, y, z;
+function init(){
+     wm = new Tian.Winager({
+        container: document.getElementById('container'),
+        taskbar: document.getElementById('taskbar')
+     });
+     v =wm.createWindow({title:"窗口 1",
+        iconImageURL: './img/icon-dragon.png'});
+     v.setContent("<h1>It Works!</h1>");
+     v.moveToCenter();
+     w =wm.createWindow({title:"Window 2",
+        iconImageURL: './img/icon-dragon.png'});
+     //w.setContent("<h1>It Works!</h1>");
+     //x =wm.createWindow({title:"Window 4",iconImageURL: './img/icon.png'});
+     //x.loadUrlX(
+     //   "http://iozoonc5.city.miyazaki.miyazaki.jp/CgiStart?page=Single&Language=12"
+     //);
+     //弗吉尼亚理工大学 – 校园
+     //http://128.173.201.214/view/index.shtml
+     //北不列颠哥伦比亚大学
+     //http://ravensview.unbc.ca/view/index.shtml
+     //http://80.36.124.72:8080/view/index.shtml
+     //y = wm.createWindow({
+     //   title:"Jquery Mobile",
+     //   iconImageURL: 'http://jquerymobile.com/favicon.ico'
+     //});
+     //y.loadUrlX('http://jquerymobile.com/demos/1.1.0/',function(w) {
+     //   console.log('load ' + w);
+     //});
+     //v.loadUrlX('http://jquerymobile.com/demos/1.1.0/');
+     //w.loadUrlX('http://jquerymobile.com/demos/1.1.0/');
+}
+</script>
+</head>
+<body onload="init()">
+    <div id='container' style="position:relative; overflow: hidden; left: 20px; top: 20px; height: 500px; width: 800px; border: solid 1px red;">
+        <div id='taskbar' class='txWidgetTaskbar txWidgetNoSelect'></div>
+    </div>
+</body>
+<script>
+</script>
+</html>

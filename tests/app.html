@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf8>
+    <script src="http://openlayers.org/api/2.12/OpenLayers.js"></script>
+    <script src="../../jpp/socket.io/io-0.9.6.min.js"></script>
+    <script src="../../jpp/openlayers/plugins/weolstk-0.4.min.js"></script>
+    <script src='../build/tian.js'></script>
+    <style>html, body, #oscanvas {margin: 0; width: 100%; height: 100%;} </style>
+</head>
+<body>
+    <div id='oscanvas'></div>
+
+<script>
+    var os;
+    function addApps(os) {
+        os.getMainPanel().addApp(new Tian.App());
+        os.getMainPanel().addApp(new Tian.App());
+        os.getMainPanel().addApp(new Tian.App());
+    }
+
+        os = new Tian.OS('oscanvas', 'http://127.0.0.1:2080/');
+        os.themeHost = "../../fanghuanweiran/branches/theme/";
+        os.theme = 'default';
+        os.boot();
+        addApps(os);
+</script>
+</body>
+</html>
