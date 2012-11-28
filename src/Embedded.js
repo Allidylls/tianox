@@ -1,5 +1,5 @@
 //=============================================================
-// Tian Embeded Applications Framework
+// Tian Embedded Applications Framework
 //
 // Note: the app must be running within an iframe window.
 // And, access resources by
@@ -9,7 +9,7 @@
 // Within the iframe, the global function 'tianMain' 
 // will be called when all resources ready.
 // You should create an app in the main function like this
-// MyApp = top.Tian.Class(top.Tian.Embeded, {
+// MyApp = top.Tian.Class(top.Tian.Embedded, {
 //     define your app here...
 // });
 // function tianMain(options) {
@@ -22,9 +22,11 @@
 // @requires Class.js
 // @requires Function.js
 // @requires Window.js
+// @requires Lang.js
+// @requires OS.js
 // @requires App.js
 
-Tian.Embeded = Tian.Class({
+Tian.Embedded = Tian.Class({
     // the window running with this application
     theWin: null,
     
@@ -116,15 +118,6 @@ Tian.Embeded = Tian.Class({
         return null;
     },
     
-    getMap: function() {
-        var os = this.getOS();
-        if (os) {
-            return os.getMap();
-        }
-        
-        return null;
-    },
-    
     // window event handlers
     // should be overridden by all derived classes
     
@@ -152,6 +145,6 @@ Tian.Embeded = Tian.Class({
     onHttpError: function(xhr, url) {
     },
 
-    CLASS_NAME: "Tian.Embeded"
+    CLASS_NAME: "Tian.Embedded"
 });
 
