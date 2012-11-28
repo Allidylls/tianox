@@ -170,7 +170,7 @@ div.txApp:hover {
 	white-space: nowrap;
 	cursor: move;
 }
-.txWinCloseBox, .txWinMaxBox, .txWinMinBox {
+.txWinCloseBox, .txWinMaxBox, .txWinMinBox, .txWinCloseBoxActive {
     position: absolute;
     top: 0px;
     width: 24px;
@@ -178,6 +178,10 @@ div.txApp:hover {
     cursor: pointer;
     background-image: url(img/win_icons.png);
     background-repeat: no-repeat;
+}
+.txWinCloseBoxActive {
+    right: 0px;
+    background-position: -72px 0px;
 }
 .txWinCloseBox {
     right: 0px;

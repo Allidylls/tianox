@@ -148,6 +148,43 @@ Tian.Event = {
         return (((event.which) && (event.which == 3)) ||
                 ((event.button) && (event.button == 2)));
     },
+    
+    /*
+     * Method: getTouchClientXY
+     * WebKit has a few bugs for clientX/clientY. This method detects them
+     * and calculate the correct values.
+     *
+     * Parameters:
+     * evt - {Touch} a Touch object from a TouchEvent
+     * 
+     * Returns:
+     * {Object} An object with only clientX and clientY properties with the
+     * calculated values.
+     */
+    getTouchClientXY: function (evt) {
+        // txMochWin is to override window, used for testing
+        var winPageX = window.pageXOffset || 0,
+            winPageY = window.pageYOffset || 0,
+            x = evt.clientX,
+            y = evt.clientY;
+        
+        if (evt.pageY === 0 && Math.floor(y) > Math.floor(evt.pageY) ||
+            evt.pageX === 0 && Math.floor(x) > Math.floor(evt.pageX)) {
+            // iOS4 include scroll offset in clientX/Y
+            x = x - winPageX;
+            y = y - winPageY;
+        } else if (y < (evt.pageY - winPageY) || x < (evt.pageX - winPageX) ) {
+            // Some Android browsers have totally bogus values for clientX/Y
+            // when scrolling/zooming a page
+            x = evt.pageX - winPageX;
+            y = evt.pageY - winPageY;
+        }
+        
+        return {
+            clientX: x,
+            clientY: y
+        };
+    },
      
     /**
      * Method: stop
@@ -857,7 +894,7 @@ Tian.Events = Tian.Class({
             var num = touches.length;
             var touch;
             for (var i=0; i<num; ++i) {
-                touch = this.getTouchClientXY(touches[i]);
+                touch = Tian.Event.getTouchClientXY(touches[i]);
                 x += touch.clientX;
                 y += touch.clientY;
             }
@@ -868,43 +905,6 @@ Tian.Events = Tian.Class({
             evt.xy = this.getMousePosition(evt);
         } 
         this.emit(type, evt);
-    },
-    
-    /**
-     * Method: getTouchClientXY
-     * WebKit has a few bugs for clientX/clientY. This method detects them
-     * and calculate the correct values.
-     *
-     * Parameters:
-     * evt - {Touch} a Touch object from a TouchEvent
-     * 
-     * Returns:
-     * {Object} An object with only clientX and clientY properties with the
-     * calculated values.
-     */
-    getTouchClientXY: function (evt) {
-        // txMochWin is to override window, used for testing
-        var winPageX = window.pageXOffset || 0,
-            winPageY = window.pageYOffset || 0,
-            x = evt.clientX,
-            y = evt.clientY;
-        
-        if (evt.pageY === 0 && Math.floor(y) > Math.floor(evt.pageY) ||
-            evt.pageX === 0 && Math.floor(x) > Math.floor(evt.pageX)) {
-            // iOS4 include scroll offset in clientX/Y
-            x = x - winPageX;
-            y = y - winPageY;
-        } else if (y < (evt.pageY - winPageY) || x < (evt.pageX - winPageX) ) {
-            // Some Android browsers have totally bogus values for clientX/Y
-            // when scrolling/zooming a page
-            x = evt.pageX - winPageX;
-            y = evt.pageY - winPageY;
-        }
-        
-        return {
-            clientX: x,
-            clientY: y
-        };
     },
 
     /**

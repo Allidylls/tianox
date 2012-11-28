@@ -74,16 +74,17 @@ Tian.Winager = Tian.Class({
     },
     
     checkResize: function() {
-        for(var a=0; a< this.windows.length; a++){
-            if(this.windows[a].state != 'maximized') {
+        for(var a=0; a< this.windows.length; a++) {
+            var window_a = this.windows[a];
+            if(window_a.state != 'maximized') {
                 continue;
             }
-            var Dw = this.windows[a].win.offsetWidth - parseInt(this.windows[a].win.style.width);
-            var Dh = this.windows[a].win.offsetHeight - parseInt(this.windows[a].win.style.height);	
-            var w = this.windows[a].getContainerWidth() - Dw;
-            var h = this.windows[a].getContainerHeight() - Dh;
+            var Dw = window_a.win.offsetWidth - parseInt(window_a.win.style.width);
+            var Dh = window_a.win.offsetHeight - parseInt(window_a.win.style.height);	
+            var w = window_a.getContainerWidth() - Dw;
+            var h = window_a.getContainerHeight() - Dh;
 		
-		    this.windows[a]._setSize(w,h,false,'resize');	
+		    window_a._setSize(w,h,false,'resize');	
         }
     
         this._resizeIcons();
@@ -97,10 +98,10 @@ Tian.Winager = Tian.Class({
 	
         var a, icns = [];
         //save icons attached to default icons container
-        for(a=0; a<this.windows.length; a++){
-            if(this.windows[a].taskbarIcon &&
-                this.windows[a].taskbarIcon.parentNode == this.opts.taskbar) {
-                icns.push(this.windows[a].taskbarIcon);
+        for(a=0; a<this.windows.length; a++) {
+            var window_a = this.windows[a];
+            if(window_a.taskbarIcon && window_a.taskbarIcon.parentNode == this.opts.taskbar) {
+                icns.push(window_a.taskbarIcon);
             }
         }
 
@@ -110,13 +111,14 @@ Tian.Winager = Tian.Class({
                     gs(this.opts.taskbar,'padding-right') - 1;
         var iw = parseInt(tbw/icns.length);
 
-        for(a=0; a<icns.length;a++) {		
-            var Dw = ( icns[a].offsetWidth + gs(icns[a],'margin-left') +
-                    gs(icns[a],'margin-right') ) - gs(icns[a],'width');		
+        for(a=0; a<icns.length;a++) {
+            var icns_a = icns[a];
+            var Dw = ( icns_a.offsetWidth + gs(icns_a,'margin-left') +
+                    gs(icns_a,'margin-right') ) - gs(icns_a,'width');		
             if( (this.opts.iconWidth + Dw) > iw){
-                icns[a].style.width = (iw-Dw-1) + 'px';
+                icns_a.style.width = (iw-Dw-1) + 'px';
             } else {
-                icns[a].style.width = this.opts.iconWidth + 'px';
+                icns_a.style.width = this.opts.iconWidth + 'px';
             }
         }
     },
@@ -145,6 +147,12 @@ Tian.Winager = Tian.Class({
 				    if( (p.x===w.x || p.userX===w.x) && (p.y===w.y || p.userY===w.y) ){
 					    w.x += this.opts.shiftOffset;
 					    w.y += this.opts.shiftOffset;
+					    if (w.x + w.w > this.getContainerWidth()) {
+					        w.x = this.opts.defaultX;
+					    }
+					    if (w.y + w.h > this.getContainerHeight()) {
+					        w.y = this.opts.defaultY;
+					    }
 					    break;
 				    }
 			    }
@@ -227,8 +235,9 @@ Tian.Winager = Tian.Class({
     getWindow: function(id) {
         var a
 	    for(var a=0; a<this.windows.length; a++){
-		    if(this.windows[a].id == id) {
-		        return this.windows[a];
+	        var win = this.windows[a];
+		    if(win.id == id) {
+		        return win;
 		    }
 	    }
 	    return null;
@@ -261,8 +270,9 @@ Tian.Winager = Tian.Class({
     },
     
     _getFirstVisibleWindow: function() {
-	    for(var a = (this.windows.length-1); a>=0 ; a--){
-		    if(this.windows[a].win.style.visibility != 'hidden') return this.windows[a];
+	    for(var a = (this.windows.length-1); a>=0 ; a--) {
+	        var win = this.windows[a];
+		    if(win.win.style.visibility != 'hidden') return win;
 	    }
 	    return null;
     },
@@ -277,7 +287,7 @@ Tian.Winager = Tian.Class({
 				    var tmp = this.windows.splice(a,1);
 				    for (var b=this.windows.length-1; b>=0; b--) {
 					    if (!this.windows[b].alwaysOnTop) break;
-					}	
+					}
 				    this.windows.splice(b+1,0,tmp[0]);
 				    break;
 			    }
@@ -285,15 +295,18 @@ Tian.Winager = Tian.Class({
 	    }
 	
 	    for (var a=0; a< this.windows.length; a++) { // no need to restack all windows...
-		    this.windows[a].win.style.zIndex = (this.opts.baseZIndex + a);
-		    this.windows[a].win.className = this.opts.classWindow;
-		    if (this.windows[a].taskbarIcon) this.windows[a].taskbarIcon.className = this.opts.classIcon;
+	        var window_a = this.windows[a];
+		    window_a.win.style.zIndex = (this.opts.baseZIndex + a);
+		    window_a.win.className = this.opts.classWindow;
+		    if (window_a.taskbarIcon) window_a.taskbarIcon.className = this.opts.classIcon;
+		    if (window_a.components.close) window_a.components.close.className = 'txWinCloseBox';
 	    }
 	    
 	    win.win.style.display = '';
 	    win.win.style.visibility = 'visible';
 	    win.win.className = this.opts.classActiveWindow;
 	    if (win.taskbarIcon) win.taskbarIcon.className = this.opts.classActiveIcon;
+	    if (win.components.close) win.components.close.className = 'txWinCloseBoxActive';
 	    this.selectedWindow = win;
 	    if(win.state=='icon' || win.state=='hidden'){
 		    win.state = win.prvState;
@@ -304,15 +317,16 @@ Tian.Winager = Tian.Class({
     
     _destroyWindow: function(w) {
 	    for (var a=0; a< this.windows.length; a++) {
-		    if (this.windows[a] == w) {
-			    if (!this.windows[a]._unload(false)) {
+	        var win_a = this.windows[a];
+		    if (win_a == w) {
+			    if (!win_a._unload(false)) {
 			        return false;
 			    }
 			
 			    //this.opts.container.removeChild(this.windows[a].win);
-			    this.windows[a].getContainer().removeChild(this.windows[a].win);
-			    if (this.windows[a].taskbarIcon != null) {				
-				    this.windows[a]._removeTaskbarIcon();
+			    win_a.getContainer().removeChild(win_a.win);
+			    if (win_a.taskbarIcon != null) {				
+				    win_a._removeTaskbarIcon();
 			    }
 			    // save a reference to removed win to handle onclose() event
 			    var closed = this.windows.splice(a,1)[0];
@@ -345,7 +359,7 @@ Tian.Winager = Tian.Class({
             var num = touches.length;
             var touch;
             for (var i=0; i<num; ++i) {
-                touch = touches[i];
+                touch = Tian.Event.getTouchClientXY(touches[i]);
                 x += touch.clientX;
                 y += touch.clientY;
             }
