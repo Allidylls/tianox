@@ -4,10 +4,6 @@
  * @requires Lang.js
  */
 
-// extend languages
-Tian.Lang.add('en', 'txApp', 'Embeded Application');
-Tian.Lang.add('zh-CN', 'txApp', '嵌入式应用');
-
 /**
  * Class: Tian.App
  */
@@ -55,7 +51,7 @@ Tian.App = Tian.Class({
      * Parameters:
      * options: {Object}, eg: {
      *               os: os,
-     *               title: {'en': 'app', 'zh-CN': 'app'},
+     *               title: {'en': 'app', 'zh-CN': 'app'}, // or title: 'app'
      *               icon: 'url',
      *               page: 'url',
      *               width: 900,
@@ -65,10 +61,23 @@ Tian.App = Tian.Class({
     initialize: function (options) {
         Tian.extend(this, options);
         
-        if (this.title && typeof this.title[Tian.Lang.getCode()] === 'string') {
-            this.title = this.title[Tian.Lang.getCode()];
+        if (this.title) {
+            if (typeof this.title == 'object') {
+                var lang = Tian.Lang.getCode();
+                if (typeof this.title[lang] == 'string') {
+                    this.title = this.title[lang];
+                } else {
+                    // use first property of this object
+                    for (var key in this.title) {
+                        this.title = this.title[key] + '';
+                        break;
+                    }
+                }
+            } else {
+                this.title += '';
+            }
         } else {
-            this.title = Tian.i18n('txApp');
+            this.title = 'Unknwon App';
         }
     },
 
