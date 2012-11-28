@@ -112,24 +112,24 @@ Tian.replaceCSS = function (oldurl, newurl, callback, doc) {
 };
 
 //=============================================================
-// GRUB mechanism
-// Look for data-grub script attribute, whick link to the grub.
+// Bootstrap mechanism
+// Look for data-boot script attribute, whick link to the boot.
 //-------------------------------------------------------------
 
 (function() {
     var ss = document.getElementsByTagName('script'),
-        grub = false;
+        boot = false;
     
     for(var i=0; i<ss.length; i++) {
-        grub = ss[i].getAttribute('data-grub');
-        if(grub) {
-            // start this grub
-            Tian.require(grub);
+        boot = ss[i].getAttribute('data-boot');
+        if(boot) {
+            // start this boot
+            Tian.require(boot);
             return;
         }
     }
     
-    // start default booting sequence
-    //Tian.require('http://host.name/grub.min.js');
+    // start default bootstrap sequence
+    //Tian.require('http://host.name/boot.min.js');
 })();
 
