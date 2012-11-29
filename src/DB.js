@@ -92,77 +92,11 @@
         /* How much space does the storage take */
         _storage_size = 0,
 
-        /* function to encode objects to JSON strings */
-        json_encode = $.JSON.stringify || Object.toJSON || (window.JSON && (JSON.encode || JSON.stringify)),
-
-        /* function to decode objects from JSON strings */
-        json_decode = $.JSON.parse || (window.JSON && (JSON.decode || JSON.parse)) || function(str){
-            return String(str).evalJSON();
-        },
-
         /* which backend is currently used */
         _backend = false,
 
         /* Next check for TTL */
-        _ttl_timeout,
-
-        /**
-         * XML encoding and decoding as XML nodes can't be JSON'ized
-         * XML nodes are encoded and decoded if the node is the value to be saved
-         * but not if it's as a property of another object
-         * Eg. -
-         *   $.jStorage.set("key", xmlNode);        // IS OK
-         *   $.jStorage.set("key", {xml: xmlNode}); // NOT OK
-         */
-        _XMLService = {
-
-            /**
-             * Validates a XML node to be XML
-             * based on jQuery.isXML function
-             */
-            isXML: function(elm){
-                var documentElement = (elm ? elm.ownerDocument || elm : 0).documentElement;
-                return documentElement ? documentElement.nodeName !== "HTML" : false;
-            },
-
-            /**
-             * Encodes a XML node to string
-             * based on http://www.mercurytide.co.uk/news/article/issues-when-working-ajax/
-             */
-            encode: function(xmlNode) {
-                if(!this.isXML(xmlNode)){
-                    return false;
-                }
-                try{ // Mozilla, Webkit, Opera
-                    return new XMLSerializer().serializeToString(xmlNode);
-                }catch(E1) {
-                    try {  // IE
-                        return xmlNode.xml;
-                    }catch(E2){}
-                }
-                return false;
-            },
-
-            /**
-             * Decodes a XML node from string
-             * loosely based on http://outwestmedia.com/jquery-plugins/xmldom/
-             */
-            decode: function(xmlString){
-                var dom_parser = ("DOMParser" in window && (new DOMParser()).parseFromString) ||
-                        (window.ActiveXObject && function(_xmlString) {
-                    var xml_doc = new ActiveXObject('Microsoft.XMLDOM');
-                    xml_doc.async = 'false';
-                    xml_doc.loadXML(_xmlString);
-                    return xml_doc;
-                }),
-                resultXML;
-                if(!dom_parser){
-                    return false;
-                }
-                resultXML = dom_parser.call("DOMParser" in window && (new DOMParser()) || window, xmlString, 'text/xml');
-                return this.isXML(resultXML)?resultXML:false;
-            }
-        };
+        _ttl_timeout;
 
     ////////////////////////// PRIVATE METHODS ////////////////////////
 
@@ -239,7 +173,7 @@
         /* if jStorage string is retrieved, then decode it */
         if(_storage_service.jStorage){
             try{
-                _storage = json_decode(String(_storage_service.jStorage));
+                _storage = $.JSON.parse(String(_storage_service.jStorage));
             }catch(E6){_storage_service.jStorage = "{}";}
         }else{
             _storage_service.jStorage = "{}";
@@ -253,7 +187,7 @@
      */
     function _save(){
         try{
-            _storage_service.jStorage = json_encode(_storage);
+            _storage_service.jStorage = $.JSON.stringify(_storage);
             // If userData is used as the storage engine, additional
             if(_storage_elm) {
                 _storage_elm.setAttribute("jStorage",_storage_service.jStorage);
@@ -319,7 +253,7 @@
     // rename jStorage to DB for Tian integerity
     $.DB = {
         /* Version number */
-        version: "0.1.7.0",
+        VERSION: "2012-11-29",
 
         /**
          * Sets a key's value.
@@ -337,13 +271,11 @@
 
             options = options || {};
 
-            if(_XMLService.isXML(value)){
-                value = {_is_xml:true,xml:_XMLService.encode(value)};
-            }else if(typeof value == "function"){
+            if(typeof value == "function"){
                 value = null; // functions can't be saved!
             }else if(value && typeof value == "object"){
                 // clone the object before saving to _storage tree
-                value = json_decode(json_encode(value));
+                value = $.JSON.parse($.JSON.stringify(value));
             }
             _storage[key] = value;
 
@@ -366,13 +298,7 @@
         get: function(key, def){
             _checkKey(key);
             if(key in _storage){
-                if(_storage[key] && typeof _storage[key] == "object" &&
-                        _storage[key]._is_xml &&
-                            _storage[key]._is_xml){
-                    return _XMLService.decode(_storage[key].xml);
-                }else{
-                    return _storage[key];
-                }
+                return _storage[key];
             }
             return typeof(def) == 'undefined' ? null : def;
         },
