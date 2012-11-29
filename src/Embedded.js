@@ -61,17 +61,24 @@ Tian.Embedded = Tian.Class({
         // run app here
         this.onRun();
     },
-
+    
+    // destructor
+    destroy: function () {
+        this.onDestroy();
+        
+        // unreference window and app it self
+        this.theWin = null;
+        this.theApp = null;
+        this.dictionaries = null;
+    },
+    
     // entry
     onRun: function () {
         // may set document.domain for communications with OS
     },
     
-    // destructor
-    destroy: function () {
-        this.theWin = null;
-        this.theApp = null;
-        this.dictionaries = null;
+    onDestroy: function () {
+        // clear private resources here
     },
     
     // Looks up a key from a dictionary based on the current language string.
@@ -133,16 +140,16 @@ Tian.Embedded = Tian.Class({
     onIconize: function() {
     },
     
+    // This event is fired on http error and overrides the default http error handler.
+    onHttpError: function(xhr, url) {
+    },
+    
     // This event is fired BEFORE a new content is loaded 
     // (ie loadUrl/loadUrlX method) or BEFORE the window is closed.
     // The event handler can return false to abort the operation.
     onUnload: function() {
         this.destroy();
         return true;
-    },
-    
-    // This event is fired on http error and overrides the default http error handler.
-    onHttpError: function(xhr, url) {
     },
 
     CLASS_NAME: "Tian.Embedded"
