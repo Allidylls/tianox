@@ -3,9 +3,6 @@
  * @requires App.js
  */
 
-// extend languages
-Tian.Lang.add('en', 'txMainPanelTitle', 'Main Panel');
-Tian.Lang.add('zh-CN', 'txMainPanelTitle', '系统面板');
 
 /**
  * Class: Tian.Widget.MainPanel
@@ -17,7 +14,6 @@ Tian.Widget.MainPanel = Tian.Class(Tian.Widget, {
     
     // app window
     window: null,
-    windowOpened: false,
     
     // default width of window
     width: 540,
@@ -34,7 +30,6 @@ Tian.Widget.MainPanel = Tian.Class(Tian.Widget, {
     initialize: function() {
         Tian.Widget.prototype.initialize.apply(this, arguments);
         // initialize private settings here ...
-        this.title = Tian.i18n('txMainPanelTitle');
         this.apps = [];
     },
 
@@ -67,10 +62,9 @@ Tian.Widget.MainPanel = Tian.Class(Tian.Widget, {
         }
         
         // close the window if opened
-        if (this.windowOpened) {
+        if (this.window) {
             this.window.close();
             this.window = null;
-            this.windowOpened = false;
         }
         
         if (this.mainDiv) {
@@ -88,7 +82,7 @@ Tian.Widget.MainPanel = Tian.Class(Tian.Widget, {
             Tian.Event.stop(evt);                                        
         }
         
-        if (this.windowOpened) {
+        if (this.window) {
             this.window.select();
             return;
         }
@@ -116,7 +110,6 @@ Tian.Widget.MainPanel = Tian.Class(Tian.Widget, {
             y: wy ? wy : null,
             iconImageURL: (this.getOS().getImagePath() + 'main_icon.png')
         });
-        this.windowOpened = true;
         
         // set window content
         this.window.getComponent('content').innerHTML = '';
@@ -132,7 +125,6 @@ Tian.Widget.MainPanel = Tian.Class(Tian.Widget, {
     // closure
     onWinClose: function (isClose) {
         this.window = null;
-        this.windowOpened = false;
     },
     
     onWinMove: function (x, y) {
@@ -182,10 +174,9 @@ Tian.Widget.MainPanel = Tian.Class(Tian.Widget, {
             // do not destroy the app here, just remove it from the list
             Tian.Array.removeItem(this.apps, app);
             // close the window of app if opened
-            if (app.active && app.window) {
+            if (app.window) {
                 app.window.close();
                 app.window = null;
-                app.active = false;
             }
         }
     },
