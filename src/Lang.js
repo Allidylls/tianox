@@ -48,24 +48,18 @@ Tian.Lang = {
     setCode: function(code) {
         var lang;
         if(!code) {
-            code = (Tian.BROWSER == "msie") ?
-                navigator.userLanguage : navigator.language;
+            code = (Tian.BROWSER == "msie") ? navigator.userLanguage : navigator.language;
         }
         
         var parts = code.split('-');
-        parts[0] = parts[0].toLowerCase();
-        lang = parts[0];
+        lang = parts[0].toLowerCase();
 
         // check for regional extensions
         if(parts[1]) {
-            lang = parts[0] + '-' + parts[1].toUpperCase();
+            lang = lang + '-' + parts[1].toUpperCase();
         }
         
-        if(!lang) {
-            lang = Tian.Lang.defaultCode;
-        }
-        
-        Tian.Lang.code = lang;
+        Tian.Lang.code = lang ? lang : Tian.Lang.defaultCode;
     },
 
     /**
@@ -80,13 +74,27 @@ Tian.Lang = {
      * Returns:
      * {String} A internationalized string.
      */
-    translate: function(key) {
-        var dictionary = Tian.Lang[Tian.Lang.getCode()];
+    translate: function(key, dictionaries) {
+        if (!dictionaries) {
+            dictionaries = Tian.Lang;
+        }
+        
+        var code = Tian.Lang.getCode();
+        var dictionary = dictionaries[code];
         var message = dictionary && dictionary[key];
         if(!message) {
+            // Message not found, try again
+            var parts = code.split('-');
+            if (parts[0] !== code) {
+                dictionary = dictionaries[parts[0]];
+                message = dictionary && dictionary[key];
+            }
             // Message not found, fall back to message key
-            message = key;
+            if (!message) {
+                message = key;
+            }
         }
+        
         return message;
     },
     

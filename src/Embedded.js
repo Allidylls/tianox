@@ -84,13 +84,7 @@ Tian.Embedded = Tian.Class({
     // Looks up a key from a dictionary based on the current language string.
     // Dictionaries are stored in property dictionaries.
     i18n: function(key) {
-        var dictionary = this.dictionaries && this.dictionaries[top.Tian.Lang.getCode()];
-        var message = dictionary && dictionary[key];
-        if (!message) {
-            // Message not found, fall back to message key
-            message = key;
-        }
-        return message;
+        return top.Tian.i18n(key, this.dictionaries);
     },
     
     // update default title

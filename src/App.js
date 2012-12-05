@@ -66,16 +66,7 @@ Tian.App = Tian.Class({
         
         if (this.title) {
             if (typeof this.title == 'object') {
-                var lang = Tian.Lang.getCode();
-                if (typeof this.title[lang] == 'string') {
-                    this.title = this.title[lang];
-                } else {
-                    // use first property of this object
-                    for (var key in this.title) {
-                        this.title = this.title[key] + '';
-                        break;
-                    }
-                }
+                this.title = Tian.i18n('app', this.title);
             } else {
                 this.title += '';
             }
