@@ -51,19 +51,16 @@ Tian.Lang = {
             code = (Tian.BROWSER == "msie") ?
                 navigator.userLanguage : navigator.language;
         }
+        
         var parts = code.split('-');
         parts[0] = parts[0].toLowerCase();
-        if(typeof Tian.Lang[parts[0]] == "object") {
-            lang = parts[0];
-        }
+        lang = parts[0];
 
         // check for regional extensions
         if(parts[1]) {
-            var testLang = parts[0] + '-' + parts[1].toUpperCase();
-            if(typeof Tian.Lang[testLang] == "object") {
-                lang = testLang;
-            }
+            lang = parts[0] + '-' + parts[1].toUpperCase();
         }
+        
         if(!lang) {
             lang = Tian.Lang.defaultCode;
         }
