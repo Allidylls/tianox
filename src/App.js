@@ -42,6 +42,9 @@ Tian.App = Tian.Class({
     
     // default height of window
     height: 250,
+
+    // is page cross domian
+    xdomain: false,
     
     // the embeded app
     theApp: null,
@@ -232,7 +235,7 @@ Tian.App = Tian.Class({
 
         // run the embeded application
         var theFrame = window.getElement('theFrame');
-        if (theFrame && theFrame.contentWindow &&
+        if (!this.xdomain && theFrame && theFrame.contentWindow &&
             typeof theFrame.contentWindow.tianMain === 'function') {
             this.theApp = theFrame.contentWindow.tianMain.call(
                 theFrame.contentWindow,
