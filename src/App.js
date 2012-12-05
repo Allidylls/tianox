@@ -54,7 +54,7 @@ Tian.App = Tian.Class({
      * Parameters:
      * options: {Object}, eg: {
      *               os: os,
-     *               title: {'en': 'app', 'zh-CN': 'app'}, // or title: 'app'
+     *               title: {'en': {'app': 'name'}, 'zh': {'app': 'name'}}, // or title: 'app'
      *               icon: 'url',
      *               page: 'url',
      *               width: 900,
