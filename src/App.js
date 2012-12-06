@@ -139,6 +139,7 @@ Tian.App = Tian.Class({
     },
     
     setOS: function(os) {
+        // only set once
         if (!this.os) {
             this.os = os;
         }
@@ -154,6 +155,10 @@ Tian.App = Tian.Class({
             Tian.Event.stop(evt);                                        
         }
         
+        this.open();
+    },
+    
+    open: function () {
         // create or select window
         if (this.window) {
             this.window.select();
