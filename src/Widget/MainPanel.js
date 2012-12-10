@@ -82,44 +82,7 @@ Tian.Widget.MainPanel = Tian.Class(Tian.Widget, {
             Tian.Event.stop(evt);                                        
         }
         
-        if (this.window) {
-            this.window.select();
-            return;
-        }
-        
-        if (!this.os) {
-            return;
-        }
-        
-        var wm = this.os.getWindowManager();
-        
-        // create a new plain window here
-        // w h x and y can use settings stored in local db
-        var ww = null, wh = null, wx = null, wy= null;
-        ww = Tian.DB.get(Tian.md5(this.title + '_ww'));
-        wh = Tian.DB.get(Tian.md5(this.title + '_wh'));
-        wx = Tian.DB.get(Tian.md5(this.title + '_wx'));
-        wy = Tian.DB.get(Tian.md5(this.title + '_wy'));
-        this.window = wm.createWindow({
-            title: this.title,
-            centered: true,
-            state: 'window',
-            width: ww ? ww : this.width,
-            height: wh ? wh : this.height,
-            x: wx ? wx : null,
-            y: wy ? wy : null,
-            iconImageURL: (this.getOS().getImagePath() + 'main_icon.png')
-        });
-        
-        // set window content
-        this.window.getComponent('content').innerHTML = '';
-        this.window.getComponent('content').appendChild(this.mainDiv);
-        this.window.getComponent('content').style.overflow = 'auto';
-        
-        // listen window events
-        this.window.onclose = Tian.Function.bind(this.onWinClose, this);
-        this.window.onmove = Tian.Function.bind(this.onWinMove, this);
-        this.window.onresize = Tian.Function.bind(this.onWinResize, this);
+        this.open();
     },
     
     // closure
@@ -129,16 +92,16 @@ Tian.Widget.MainPanel = Tian.Class(Tian.Widget, {
     
     onWinMove: function (x, y) {
         // save status into local db
-        Tian.DB.set(Tian.md5(this.title + '_wx'), x);
-        Tian.DB.set(Tian.md5(this.title + '_wy'), y);
+        Tian.DB.set(Tian.md5(this.CLASS_NAME + '_wx'), x);
+        Tian.DB.set(Tian.md5(this.CLASS_NAME + '_wy'), y);
     },
     
     onWinResize: function (w, h, a) {
         // save status into local db
         switch (a) {
             case 'resize':
-                Tian.DB.set(Tian.md5(this.title + '_ww'), w);
-                Tian.DB.set(Tian.md5(this.title + '_wh'), h);
+                Tian.DB.set(Tian.md5(this.CLASS_NAME + '_ww'), w);
+                Tian.DB.set(Tian.md5(this.CLASS_NAME + '_wh'), h);
                 break;
             case 'maximize':
                 break;
@@ -196,6 +159,47 @@ Tian.Widget.MainPanel = Tian.Class(Tian.Widget, {
     // return the apps array
     getAllApps: function() {
         return this.apps;
+    },
+    
+    open: function () {
+        if (this.window) {
+            this.window.select();
+            return;
+        }
+        
+        if (!this.os) {
+            return;
+        }
+        
+        var wm = this.os.getWindowManager();
+        
+        // create a new plain window here
+        // w h x and y can use settings stored in local db
+        var ww = null, wh = null, wx = null, wy= null;
+        ww = Tian.DB.get(Tian.md5(this.CLASS_NAME + '_ww'));
+        wh = Tian.DB.get(Tian.md5(this.CLASS_NAME + '_wh'));
+        wx = Tian.DB.get(Tian.md5(this.CLASS_NAME + '_wx'));
+        wy = Tian.DB.get(Tian.md5(this.CLASS_NAME + '_wy'));
+        this.window = wm.createWindow({
+            title: this.title,
+            centered: true,
+            state: 'window',
+            width: ww ? ww : this.width,
+            height: wh ? wh : this.height,
+            x: wx ? wx : null,
+            y: wy ? wy : null,
+            iconImageURL: (this.getOS().getImagePath() + 'main_icon.png')
+        });
+        
+        // set window content
+        this.window.getComponent('content').innerHTML = '';
+        this.window.getComponent('content').appendChild(this.mainDiv);
+        this.window.getComponent('content').style.overflow = 'auto';
+        
+        // listen window events
+        this.window.onclose = Tian.Function.bind(this.onWinClose, this);
+        this.window.onmove = Tian.Function.bind(this.onWinMove, this);
+        this.window.onresize = Tian.Function.bind(this.onWinResize, this);
     },
     
     // may event handlers here ...
