@@ -332,7 +332,7 @@ Tian.Window = Tian.Class({
         this._iconify();
     },
     
-    onWinClick: function(e) {
+    onWinClick: function() {
         this.select();
     },
     
