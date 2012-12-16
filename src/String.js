@@ -401,7 +401,6 @@ Tian.String = {
 
         // SETUP
         var retArr = [],
-            num = 0,
             _NWS = /\S/,
             args = arguments,
             that = this,
@@ -497,7 +496,6 @@ Tian.String = {
                         break;
                     default:
                         throw 'Unexpected size specifier in sscanf()!';
-                        break;
                     }
                 }
                 
@@ -527,7 +525,7 @@ Tian.String = {
                         break;
                     case 'i':
                         // Integer with base detection (Equivalent of 'd', but base 0 instead of 10)
-                        j = _addNext(j, /([+-])?(?:(?:0x([\da-fA-F]+))|(?:0([0-7]+))|(\d+))/, function (num, sign, hex, oct, dec) {
+                        j = _addNext(j, /([+-])?(?:(?:0x([\da-fA-F]+))|(?:0([0-7]+))|(\d+))/, function (num, sign, hex, oct) {
                             return hex ? parseInt(num, 16) : oct ? parseInt(num, 8) : parseInt(num, 10);
                         });
                         break;
@@ -583,7 +581,7 @@ Tian.String = {
                         break;
                     case 'o':
                         // Octal integer // Fix: add overflows as above?
-                        j = _addNext(j, /([+-])?(?:0([0-7]+))/, function (num, sign, oct) {
+                        j = _addNext(j, /([+-])?(?:0([0-7]+))/, function (num) {
                             return parseInt(num, 8);
                         });
                         break;
@@ -596,7 +594,7 @@ Tian.String = {
                     case 'x':
                         // Fix: add overflows as above?
                         // Initial 0x not necessary here
-                        j = _addNext(j, /([+-])?(?:(?:0x)?([\da-fA-F]+))/, function (num, sign, hex) {
+                        j = _addNext(j, /([+-])?(?:(?:0x)?([\da-fA-F]+))/, function (num) {
                             return parseInt(num, 16);
                         });
                         break;
