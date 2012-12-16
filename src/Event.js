@@ -859,7 +859,7 @@ Tian.Events = Tian.Class({
             // bind the context to callback.obj
             continueChain = callback.func.apply(callback.obj, [evt]);
 
-            if ((continueChain != undefined) && (continueChain == false)) {
+            if ((continueChain !== undefined) && (continueChain === false)) {
                 // if callback returns false, execute no more callbacks.
                 break;
             }

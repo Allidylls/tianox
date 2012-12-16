@@ -86,7 +86,7 @@ Tian.Widget.MainPanel = Tian.Class(Tian.Widget, {
     },
     
     // closure
-    onWinClose: function (isClose) {
+    onWinClose: function () {
         this.window = null;
     },
     

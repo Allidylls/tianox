@@ -135,7 +135,7 @@ Tian.Embedded = Tian.Class({
     },
     
     // This event is fired on http error and overrides the default http error handler.
-    onHttpError: function(xhr, url) {
+    onHttpError: function(/*xhr, url*/) {
     },
     
     // This event is fired BEFORE a new content is loaded 

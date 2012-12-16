@@ -37,7 +37,7 @@ Tian.Widget.TitleBar = Tian.Class(Tian.Widget, {
         Tian.Widget.prototype.destroy.apply(this, arguments);
     },
     
-    setOS: function (os) {
+    setOS: function () {
         Tian.Widget.prototype.setOS.apply(this, arguments);
         
         if (this.os) {
