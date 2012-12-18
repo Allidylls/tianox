@@ -46,6 +46,9 @@ Tian.ISGECKO = (function() {
     return ua.indexOf("webkit") == -1 && ua.indexOf("gecko") != -1;
 })();
 
+// Temporary namespace for dynamic usage
+Tian.Temp = {};
+
 //=============================================================
 // Utility functions
 //-------------------------------------------------------------
