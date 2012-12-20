@@ -2,6 +2,7 @@ xxxx-xx-xx, Version 1.1
 
 + Add method .open to Tian.App instances
 + Add method .open to Tian.Widget.MainPanel instances
++ Add namespace Tian.Temp for dynamic resources accessing
 * Tian.i18n supports arbitrary dictionaries set by the second argument
 * In Tian.Lang, the short language code will be used if the long one not available
 
