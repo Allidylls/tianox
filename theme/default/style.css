@@ -210,12 +210,14 @@ div.txApp:hover {
     position:relative;
 	background-color: #fff;
 	padding: 0px;
+	margin: 0px;
 	overflow: hidden;
 }
 .txWinContentSafari {
     position:relative;
 	background-color: #fff;
 	padding: 0px;
+	margin: 0px;
 	overflow: auto;
     -webkit-overflow-scrolling: touch;
 }

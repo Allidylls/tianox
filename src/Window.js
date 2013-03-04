@@ -383,9 +383,9 @@ Tian.Window = Tian.Class({
     },
     
     autoSize: function() { // maybe in the future...
-	    this.win.style.height = 0 +'px';
-	    this.win.style.width =  0 +'px';
-	    this.content.style.height =0 +'px';
+	    this.win.style.height = 0 + 'px';
+	    this.win.style.width =  0 + 'px';
+	    this.content.style.height =0 + 'px';
 	    this.content.style.width = 0 + 'px';
 	    var w = this.content.scrollWidth + 30;
 		var h = this.content.scrollHeight + 70;
@@ -521,14 +521,14 @@ Tian.Window = Tian.Class({
 		    url = ret + ((ret === url) ? ( (/\?/).test(url) ? "&" : "?") + "_=" + ts : "");
 	    }
 	    frame.src = url;
-
-        Tian.Event.observe(frame, 'load', (function(w, fm) { return function() {
-	        w.currentUrl = url;
-	        w.showLoading(false);
+        
+        Tian.Event.observe(frame, 'load', (function(win, frm) { return function() {
+	        win.currentUrl = url;
+	        win.showLoading(false);
 	        // call the outside handler
-	        if(typeof onload === 'function') onload(w);
+	        if(typeof onload === 'function') onload.apply(win, [win]);
 	        // clear memory
-	        Tian.Event.stopObservingElement(fm);
+	        Tian.Event.stopObservingElement(frm);
 	    }})(this, frame));
 	
 	    // add this iframe to content

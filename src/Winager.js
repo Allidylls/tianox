@@ -136,7 +136,7 @@ Tian.Winager = Tian.Class({
 	
 	    var w = new Tian.Window(opts, this);
 	
-	    w.win = document.createElement('div');		
+	    w.win = document.createElement('div');
     	w.content = document.createElement('div');
 
 	    if (this.opts.shiftOffset > 0) {
@@ -167,7 +167,7 @@ Tian.Winager = Tian.Class({
 	    //margins and position on content are not allowed
 	    // IMPORTANT: init width n height
 	    w.content.className = this.opts.classContent;
-	    w.content.style.cssText = 'position:relative;margin:0;width:0px;height:0px';
+	    w.content.style.cssText = 'width:0px;height:0px';
 	
 		w.title = document.createElement('div');
 		w.title.className = this.opts.classTitle;
