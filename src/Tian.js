@@ -5,7 +5,7 @@ var Tian = {};
 // Constants and properties
 //-------------------------------------------------------------
 
-Tian.VERSION = "1.0";
+Tian.VERSION = "1.1";
 
 /**
  * Constant: BROWSER
