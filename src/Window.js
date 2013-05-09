@@ -50,7 +50,6 @@ Tian.Window = Tian.Class({
 	closeConfirm: '',
 	
 	// callbacks
-	afterLoad: null,
 	onunload: null,
 	onselect: null,
 	onresize: null,
@@ -58,7 +57,6 @@ Tian.Window = Tian.Class({
 	oniconize: null,
 	ondeselect: null,
 	onclose: null,
-	onhttperror: null,
 
     // constructor
     initialize: function(opts, manager) {
@@ -85,18 +83,17 @@ Tian.Window = Tian.Class({
 	    this.alwaysOnTop = opts.alwaysOnTop || false;
 	    this.titleText = opts.title || '';
 	    this.iconImageURL = opts.iconImageURL || '';
-	    this.afterLoad = opts.afterLoad || manager.opts.afterLoad;
 	
 	    this.components = {
 		    titlebar:   null,
 		    window: null,
 		    content:    null,
-		    maximizer:  null,
-		    iconizer:   null,
 		    close:  null,
-		    icon:   null,
+		    iconizer:   null,
+		    maximizer:  null,
 		    loading:    null,
-		    iconImage: null
+		    zoomer: null,
+		    icon:   null
 	    };
     },
     
@@ -105,15 +102,6 @@ Tian.Window = Tian.Class({
     },
     
     attachEvents: function() {
-        if (this.components.iconImage) {
-            Tian.Event.observe(this.components.iconImage, 'mousedown',  Tian.Function.bind(this.onIconMouseDown, this));
-            Tian.Event.observe(this.components.iconImage, 'touchstart', Tian.Function.bind(this.onIconMouseDown, this));
-            Tian.Event.observe(this.components.iconImage, 'mousemove', Tian.Function.bind(this.onIconMouseMove, this));
-            Tian.Event.observe(this.components.iconImage, 'touchmove', Tian.Function.bind(this.onIconMouseMove, this));
-            Tian.Event.observe(this.components.iconImage, 'mouseup',  Tian.Function.bind(this.onIconMouseUp, this));
-            Tian.Event.observe(this.components.iconImage, 'mouseout', Tian.Function.bind(this.onIconMouseUp, this));
-            Tian.Event.observe(this.components.iconImage, 'touchend', Tian.Function.bind(this.onIconMouseUp, this));
-        }
         if (this.titleSpan) {
             Tian.Event.observe(this.titleSpan, 'mousedown',  Tian.Function.bind(this.onTitleMouseDown, this));
             Tian.Event.observe(this.titleSpan, 'touchstart', Tian.Function.bind(this.onTitleMouseDown, this));
@@ -132,15 +120,21 @@ Tian.Window = Tian.Class({
         if (this.components.iconizer) {
             Tian.Event.observe(this.components.iconizer, 'click', Tian.Function.bind(this.onMinClick, this));
         }
+        if (this.components.zoomer) {
+            Tian.Event.observe(this.components.zoomer, 'mousedown',  Tian.Function.bind(this.onZoomMouseDown, this));
+            Tian.Event.observe(this.components.zoomer, 'touchstart', Tian.Function.bind(this.onZoomMouseDown, this));
+            Tian.Event.observe(this.components.zoomer, 'mousemove', Tian.Function.bind(this.onZoomMouseMove, this));
+            Tian.Event.observe(this.components.zoomer, 'touchmove', Tian.Function.bind(this.onZoomMouseMove, this));
+            Tian.Event.observe(this.components.zoomer, 'mouseup',  Tian.Function.bind(this.onZoomMouseUp, this));
+            Tian.Event.observe(this.components.zoomer, 'mouseout', Tian.Function.bind(this.onZoomMouseUp, this));
+            Tian.Event.observe(this.components.zoomer, 'touchend', Tian.Function.bind(this.onZoomMouseUp, this));
+        }
         if (this.win) {
             Tian.Event.observe(this.win, 'click', Tian.Function.bind(this.onWinClick, this));
         }
     },
     
     detachEvents: function() {
-        if (this.components.iconImage) {
-            Tian.Event.stopObservingElement(this.components.iconImage);
-        }
         if (this.titleSpan) {
             Tian.Event.stopObservingElement(this.titleSpan);
         }
@@ -152,6 +146,9 @@ Tian.Window = Tian.Class({
         }
         if (this.components.iconizer) {
             Tian.Event.stopObservingElement(this.components.iconizer);
+        }
+        if (this.components.zoomer) {
+            Tian.Event.stopObservingElement(this.components.zoomer);
         }
         if (this.win) {
             Tian.Event.stopObservingElement(this.win);
@@ -233,7 +230,7 @@ Tian.Window = Tian.Class({
 	    }
     },
     
-    onIconMouseDown: function(e) {
+    onZoomMouseDown: function(e) {
         Tian.Event.stop(e);
         this.select();
         this.resizing = true;
@@ -242,14 +239,14 @@ Tian.Window = Tian.Class({
 	        e = window.event;	
 	    }
 	
-        var xy = this.wm.getEventXY(e, this.components.iconImage);
+        var xy = this.wm.getEventXY(e, this.components.zoomer);
 	    this.wm.mouse.click.rx = xy.x;
 	    this.wm.mouse.click.ry = xy.y;
 	    this.wm.mouse.click.x = xy.x - this.x;
         this.wm.mouse.click.y = xy.y - this.y;
     },
     
-    onIconMouseMove: function(e) {
+    onZoomMouseMove: function(e) {
         Tian.Event.stop(e);
     
         if (!this.resizing) {
@@ -261,37 +258,31 @@ Tian.Window = Tian.Class({
 	    if(!e) {
 	        e = window.event;
 	    }
-	    var xy = this.wm.getEventXY(e, this.components.iconImage);
+	    var xy = this.wm.getEventXY(e, this.components.zoomer);
 	    this.wm.mouse.cur.x = xy.x;
 	    this.wm.mouse.cur.y = xy.y;
 	
-	    // move 
+	    // move verticaly
         var y = (this.wm.mouse.cur.y - this.wm.mouse.click.y);
-	    var x = (this.wm.mouse.cur.x - this.wm.mouse.click.x);
 	    if (this.wm.opts.containerBoundaries > 0) {
 		    // these vals may be cached while moving..
-		    var minx = -1*(this.getWidth() - this.wm.opts.containerBoundaries);
-		    var maxx = this.getContainerWidth() - this.wm.opts.containerBoundaries;
 		    var maxy = this.getContainerHeight() - this.wm.opts.containerBoundaries;
-		    if (x < minx) x = minx;
-		    if (x > maxx) x = maxx;		
 		    if (y > maxy) y = maxy;
 	    }
-	    if (this.wm.opts.containerBoundaries > -1) {		
+	    if (this.wm.opts.containerBoundaries > -1) {
 		    if(y < 0) y = 0;
 	    }
 	    this.win.style.top  = y + 'px';
-	    this.win.style.left = x + 'px';	
-	
+
 	    // resize
-	    var h = (this.h + (this.wm.mouse.click.ry - this.wm.mouse.cur.y));		
-	    var w = (this.w + (this.wm.mouse.click.rx - this.wm.mouse.cur.x));
+	    var h = (this.h + (this.wm.mouse.click.ry - this.wm.mouse.cur.y));
+	    var w = (this.w + (this.wm.mouse.cur.x - this.wm.mouse.click.rx));
 	    if (w < 90) w = 90;
 	    if (h < 50) h = 50;
 	    this._setSize(w, h, true, 'resize');
     },
-    
-    onIconMouseUp: function(e) {
+
+    onZoomMouseUp: function(e) {
         Tian.Event.stop(e);
         this.resizing = false;
     
@@ -340,8 +331,8 @@ Tian.Window = Tian.Class({
     
     getElement: function(eid, o) {
 	    if (!o) o = this.content;
-	    for (var a=0; a<o.childNodes.length; a++){
-		    if (o.childNodes[a].getAttribute && o.childNodes[a].getAttribute("data-wid") == eid ) { 
+	    for (var a=0; a<o.childNodes.length; a++) {
+		    if (o.childNodes[a].getAttribute && o.childNodes[a].getAttribute("data-wid") == eid) {
 			    return o.childNodes[a];
 		    }
 		    var t = this.getElement(eid,o.childNodes[a]);
@@ -427,79 +418,10 @@ Tian.Window = Tian.Class({
     },
     
     setContent: function(html, element) {
-	    var afterLoad = null;
 	    if (!element) {
 		    element = this.content;
-		    afterLoad = this.afterLoad;
 	    }
 	    element.innerHTML = html.replace(/<script.*?>[\s\S]*?<\/.*?script>/gi,"");
-	    
-	    if (typeof afterLoad === 'function') afterLoad(this);
-    },
-    
-    loadUrl: function(url, onload, onerror) {
-	    this.showLoading();
-	    
-	    var req = false;
-	    // branch for native XMLHttpRequest object
-	    if(window.XMLHttpRequest  && !(window.ActiveXObject)) {
-		    try {
-		    	req = new XMLHttpRequest();
-		    } catch(e) {
-			    req = false;
-		    }
-	    // branch for IE/Windows ActiveX version
-	    } else if (window.ActiveXObject) {
-		    try {
-			    req = new ActiveXObject("Msxml2.XMLHTTP");
-		    } catch(e) {
-			    try {
-				    req = new ActiveXObject("Microsoft.XMLHTTP");
-			    } catch(e) {
-				    req = false;
-			    }
-		    }
-	    }
-	    if(!req) {
-		    window.alert("AJAX not supported by this browser");
-		    if (typeof onerror === 'function') onerror(this);
-		    return false;
-	    }
-	    
-	    req.onreadystatechange = (function(w) { return function() {
-		    if (req.readyState == 4) {
-			    w.showLoading(false);
-			    switch (req.status) {
-				case 200: // OK
-					w.currentUrl=url;
-					w.setContent(req.responseText);	 	
-					if(typeof onload === 'function') onload(w);
-					break;
-				default:
-				    if(typeof onerror === 'function') onerror(w);
-					if(typeof w.onhttperror === 'function') {
-						w.onhttperror(req, url);
-						return;
-					}
-					if(typeof w.wm.opts.httpErrorHandler === 'function'){
-						w.wm.opts.httpErrorHandler(req, url, w);
-						return;
-					}
-					window.alert("HTTP Error: " +req.status + "\n" + url);
-			    }
-		    }
-	    }})(this);
-	
-	    // cache prevention code ripped from jquery 
-	    if(!this.wm.opts.cacheXHR){
-		    var ts = (new Date).getTime();
-		    // try replacing _= if it is there
-		    var ret = url.replace(/(\?|&)_=.*?(&|$)/, "$1_=" + ts + "$2");
-		    // if nothing was replaced, add timestamp to the end
-		    url = ret + ((ret === url) ? ( (/\?/).test(url) ? "&" : "?") + "_=" + ts : "");
-	    }
-	    req.open("GET", url, true);
-	    req.send("");
     },
     
     // load page cross-domain with iframe
@@ -511,15 +433,6 @@ Tian.Window = Tian.Class({
 	    var frame = document.createElement('iframe');
 	    frame.className = this.wm.opts.classFrame;
 	    frame.setAttribute('data-wid', 'theFrame');
-	    // cache prevention code ripped from jquery
-	    if (!this.wm.opts.cacheXHR) {
-	        var now = new Date;
-		    var ts = now.getTime();
-		    // try replacing _= if it is there
-		    var ret = url.replace(/(\?|&)_=.*?(&|$)/, "$1_=" + ts + "$2");
-		    // if nothing was replaced, add timestamp to the end
-		    url = ret + ((ret === url) ? ( (/\?/).test(url) ? "&" : "?") + "_=" + ts : "");
-	    }
 	    frame.src = url;
         
         Tian.Event.observe(frame, 'load', (function(win, frm) { return function() {
@@ -557,7 +470,6 @@ Tian.Window = Tian.Class({
     setIconImage: function(iconUrl) {
         if (iconUrl && iconUrl !== this.iconImageURL) {
             this.iconImageURL = iconUrl;
-            if (this.components.iconImage) this.components.iconImage.src = iconUrl;
             if (this.taskbarIconImage) this.taskbarIconImage.src = iconUrl;
         }
     },
@@ -612,11 +524,11 @@ Tian.Window = Tian.Class({
     },
     
     getContentWidth: function() { 
-	    return parseInt(this.content.style.width);
+	    return parseInt(this.content.style.width, 10);
     },
 
     getContentHeight: function() { 
-	    return parseInt(this.content.style.height);
+	    return parseInt(this.content.style.height, 10);
     },
     
     getId: function() { 
@@ -627,9 +539,8 @@ Tian.Window = Tian.Class({
 	    return this.titleText;
     },
 
-    getCurrentUrl: function(full) { 
-	    // if not full remove anti-caching url variable
-	    return ( (this.wm.opts.cacheXHR || full) ? this.currentUrl : this.currentUrl.replace(/(\?|&)_=.*/,'') );
+    getCurrentUrl: function() { 
+	    return this.currentUrl;
     },
 
     getState: function() { 
@@ -690,8 +601,8 @@ Tian.Window = Tian.Class({
 	    this.win.style.height = h +'px';
 	    this.win.style.width = w +'px';
 	    
-	    var contw = w - (this.content.offsetWidth - parseInt(this.content.style.width));
-	    var conth = h - (this.content.offsetHeight-parseInt(this.content.style.height)) - this.content.offsetTop;
+	    var contw = w - (this.content.offsetWidth - parseInt(this.content.style.width, 10));
+	    var conth = h - (this.content.offsetHeight- parseInt(this.content.style.height, 10)) - this.content.offsetTop;
 	    this.content.style.height = conth + 'px';
 	    this.content.style.width = contw + 'px';
 	    
@@ -786,7 +697,6 @@ Tian.Window = Tian.Class({
 	    this.onmove = null;
 	    this.oniconize = null;
 	    this.ondeselect = null;
-	    this.onhttperror = null;
 	
 	    return true;
     },

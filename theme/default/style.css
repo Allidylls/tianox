@@ -122,12 +122,12 @@ div.txApp:hover {
 	-webkit-border-radius: 9px 9px 0 0;
 }
 .txWindow {
-	border: solid 3px #BBBBBB;
-	background-color: #BBBBBB;
+	border: solid 3px #CCCCCC;
+	background-color: #EEEEEE;
 }
 .txWindowActive {
-    border: solid 3px #6BADF6;
-    background-color: #6BADF6;
+    border: solid 3px #CCCCCC;
+    background-color: #EEEEEE;
 }
 .txWinTitle {
 	position: relative;
@@ -139,29 +139,18 @@ div.txApp:hover {
 	text-align: center;
 }
 .txWindow .txWinTitle {
-    background-color: #BBBBBB;
-	border-bottom: solid 3px #BBBBBB;
+    background-color: #CCCCCC;
+	border-bottom: solid 3px #CCCCCC;
 }
 .txWindowActive .txWinTitle {
-    background-color: #6BADF6;
-	border-bottom: solid 3px #6BADF6;
-}
-.txWinIconImage {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 24px;
-    height: 24px;
-    cursor: nw-resize;
-    border-radius: 5px 0 0 0;
-	-moz-border-radius: 5px 0 0 0;
-	-webkit-border-radius: 5px 0 0 0;
+    background-color: #CCCCCC;
+	border-bottom: solid 3px #CCCCCC;
 }
 .txWinTitleText {
     position: absolute;
     top: 0px;
-    left: 25px;
-    right: 72px;
+    left: 72px;
+    right: 48px;
     width: auto;
     height: 20px;
     font-size: 14px;
@@ -170,7 +159,10 @@ div.txApp:hover {
 	white-space: nowrap;
 	cursor: move;
 }
-.txWinCloseBox, .txWinMaxBox, .txWinMinBox, .txWinCloseBoxActive {
+.txWinCloseBox, .txWinCloseBoxActive, 
+.txWinMaxBox, .txWinMaxBoxActive, 
+.txWinMinBox, .txWinMinBoxActive, 
+.txWinZoomBox, .txWinZoomBoxActive {
     position: absolute;
     top: 0px;
     width: 24px;
@@ -180,25 +172,43 @@ div.txApp:hover {
     background-repeat: no-repeat;
 }
 .txWinCloseBoxActive {
-    right: 0px;
-    background-position: -72px 0px;
+    left: 0px;
+    background-position: 0px 0px;
 }
 .txWinCloseBox {
-    right: 0px;
-    background-position: -48px 0px;
+    left: 0px;
+    background-position: 0px -24px;
 }
-.txWinMaxBox {
-    right: 24px;
+.txWinMinBoxActive {
+    left: 24px;
     background-position: -24px 0px;
 }
 .txWinMinBox {
-    right: 48px;
-    background-position: 0px 0px;
+    left: 24px;
+    background-position: -24px -24px;
+}
+.txWinMaxBoxActive {
+    left: 48px;
+    background-position: -48px 0px;
+}
+.txWinMaxBox {
+    left: 48px;
+    background-position: -48px -24px;
+}
+.txWinZoomBoxActive {
+    right: 0px;
+    cursor: ne-resize;
+    background-position: -72px 0px;
+}
+.txWinZoomBox {
+    right: 0px;
+    cursor: ne-resize;
+    background-position: -72px -24px;
 }
 .txWinLoading {
     position: absolute;
     top: 0px;
-    right: 72px;
+    right: 24px;
     width: 24px;
     height: 24px;
     background-image: url(img/win_loading.gif);

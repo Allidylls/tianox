@@ -48,12 +48,9 @@ Tian.Winager = Tian.Class({
 		    defaultHeight: 300,
 		    shiftOffset: 32,
 		    movable: true,
-		    httpErrorHandler: null,
 		    containerBoundaries: 64,
 		    iconWidth: 36,
-		    resizeIcons: true,
-		    afterLoad: null,
-		    cacheXHR: false
+		    resizeIcons: true
         };
         
         Tian.extend(this.opts, options);
@@ -172,11 +169,6 @@ Tian.Winager = Tian.Class({
 		w.title = document.createElement('div');
 		w.title.className = this.opts.classTitle;
 		
-		// icon image
-		w.components.iconImage = document.createElement('img');
-		w.components.iconImage.className = 'txWinIconImage';
-		w.components.iconImage.src = w.iconImageURL;
-		w.title.appendChild(w.components.iconImage);
 		// title text
 		w.titleSpan = document.createElement('div');
 		w.titleSpan.className = 'txWinTitleText';
@@ -196,21 +188,22 @@ Tian.Winager = Tian.Class({
 			w.components.iconizer.className = 'txWinMinBox';
 			w.title.appendChild(w.components.iconizer);
 		}
+		// loading image
+	    w.loading = document.createElement('div');
+	    w.loading.className = 'txWinLoading';
+		w.title.appendChild(w.loading);
+	    w.components.loading = w.loading;
+	    // zoomer
+	    w.components.zoomer = document.createElement('div');
+	    w.components.zoomer.className = 'txWinZoomBox';
+	    w.title.appendChild(w.components.zoomer);
 		
 		w.win.appendChild(w.title);
 		w.components.titlebar = w.title;
 
 	    w.win.appendChild(w.content);
 	    w.components.content = w.content;
-	    // loading image
-	    w.loading = document.createElement('div');
-	    w.loading.className = 'txWinLoading';
-	    if(w.title) {
-		    w.title.appendChild(w.loading);
-        } else {
-	        w.win.appendChild(w.loading);
-	    }
-	    w.components.loading = w.loading;
+	    
 
 	    container.appendChild(w.win);
 	    w.components.window = w.win;
@@ -300,6 +293,9 @@ Tian.Winager = Tian.Class({
 		    window_a.win.className = this.opts.classWindow;
 		    if (window_a.taskbarIcon) window_a.taskbarIcon.className = this.opts.classIcon;
 		    if (window_a.components.close) window_a.components.close.className = 'txWinCloseBox';
+		    if (window_a.components.iconizer) window_a.components.iconizer.className = 'txWinMinBox';
+	        if (window_a.components.maximizer) window_a.components.maximizer.className = 'txWinMaxBox';
+	        if (window_a.components.zoomer) window_a.components.zoomer.className = 'txWinZoomBox';
 	    }
 	    
 	    win.win.style.display = '';
@@ -307,6 +303,9 @@ Tian.Winager = Tian.Class({
 	    win.win.className = this.opts.classActiveWindow;
 	    if (win.taskbarIcon) win.taskbarIcon.className = this.opts.classActiveIcon;
 	    if (win.components.close) win.components.close.className = 'txWinCloseBoxActive';
+	    if (win.components.iconizer) win.components.iconizer.className = 'txWinMinBoxActive';
+	    if (win.components.maximizer) win.components.maximizer.className = 'txWinMaxBoxActive';
+	    if (win.components.zoomer) win.components.zoomer.className = 'txWinZoomBoxActive';
 	    this.selectedWindow = win;
 	    if(win.state=='icon' || win.state=='hidden'){
 		    win.state = win.prvState;

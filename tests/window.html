@@ -13,10 +13,11 @@ function init(){
      });
      v =wm.createWindow({title:"窗口 1",
         iconImageURL: './img/icon-dragon.png'});
-     v.setContent("<h1>It Works!</h1>");
+     v.loadUrlX('http://jquerymobile.com/demos/1.1.0/');
      v.moveToCenter();
      w =wm.createWindow({title:"Window 2",
         iconImageURL: './img/icon-dragon.png'});
+     w.setContent("<h1>It Works!</h1>");
      //w.setContent("<h1>It Works!</h1>");
      //x =wm.createWindow({title:"Window 4",iconImageURL: './img/icon.png'});
      //x.loadUrlX(
@@ -34,7 +35,6 @@ function init(){
      //y.loadUrlX('http://jquerymobile.com/demos/1.1.0/',function(w) {
      //   console.log('load ' + w);
      //});
-     v.loadUrlX('http://jquerymobile.com/demos/1.1.0/');
      //w.loadUrlX('http://jquerymobile.com/demos/1.1.0/');
 }
 </script>
