@@ -50,18 +50,6 @@ html, body {
     white-space: nowrap;
 }
 
-/* Tian taskbar */
-.txWidgetTaskbar {
-    position: absolute;
-    bottom: 16px;
-    left: 64px;
-    right: 64px;
-    height: 36px;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
 /* Tian main panel */
 .txWidgetMainPanel {
     position: absolute;
@@ -126,8 +114,8 @@ div.txApp:hover {
 	background-color: #EEEEEE;
 }
 .txWindowActive {
-    border: solid 3px #CCCCCC;
-    background-color: #EEEEEE;
+    border: solid 3px #CCCCFC;
+    background-color: #EEEEFE;
 }
 .txWinTitle {
 	position: relative;
@@ -143,8 +131,8 @@ div.txApp:hover {
 	border-bottom: solid 3px #CCCCCC;
 }
 .txWindowActive .txWinTitle {
-    background-color: #CCCCCC;
-	border-bottom: solid 3px #CCCCCC;
+    background-color: #CCCCFC;
+	border-bottom: solid 3px #CCCCFC;
 }
 .txWinTitleText {
     position: absolute;
@@ -239,6 +227,16 @@ div.txApp:hover {
     right: 0;
     border: none;
 }
+.txWinTaskbar {
+    position: absolute;
+    bottom: 16px;
+    left: 64px;
+    right: 64px;
+    height: 36px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+}
 .txWinTaskBarIcon, .txWinTaskBarIconActive{
 	height:32px;
 	margin-right:5px;
@@ -251,7 +249,7 @@ div.txApp:hover {
 	-webkit-border-radius: 5px;
 }
 .txWinTaskBarIcon{
-	border: 2px solid #BBBBBB;
+	border: 2px solid #CCCCCC;
 	background-color: transparent;
 }
 div.txWinTaskBarIcon:hover{
@@ -259,8 +257,8 @@ div.txWinTaskBarIcon:hover{
     background-color: white;
 }
 .txWinTaskBarIconActive{
-	border: 2px solid #6BADF6;
-	background-color: #6BADF6;
+	border: 2px solid #CCCCFC;
+	background-color: #CCCCFC;
 }
 .txWinTaskBarIcon img, .txWinTaskBarIconActive img{
 	width: 32px;

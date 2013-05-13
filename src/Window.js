@@ -25,6 +25,8 @@ Tian.Window = Tian.Class({
 	// dragging
 	resizing: false,
 	moving: false,
+	// animation
+	animating: false,
 	
 	titleText: '',
 	title: null,
@@ -386,6 +388,8 @@ Tian.Window = Tian.Class({
     
     setPosition: function(x, y) {
 	    this._setPosition(x, y);
+	    this.userX = x;
+	    this.userY = y ;
 	    if (typeof this.onmove === 'function') this.onmove(x, y);
     },
     
@@ -410,6 +414,12 @@ Tian.Window = Tian.Class({
 	    this.state = 'hidden';
 	    this.win.style.visibility = 'hidden';
 	    this.win.style.display = 'none';
+    },
+    
+    show: function () {
+	    this.state = this.prvState;
+	    this.win.style.visibility = 'visible';
+	    this.win.style.display = '';
     },
     
     attachTo: function(el) {
@@ -572,9 +582,9 @@ Tian.Window = Tian.Class({
     _setPosition: function(x, y) { 
 	    this.state = 'window';
 	    this.win.style.left = x + 'px';
-	    this.win.style.top = y + 'px'
-	    this.x = this.userX = x;
-	    this.y = this.userY = y ;
+	    this.win.style.top = y + 'px';
+	    this.x = x;
+	    this.y = y ;
     },
     
     _maximize: function() {
@@ -615,29 +625,86 @@ Tian.Window = Tian.Class({
     },
     
     _iconify: function() {
-	    if(!this.wm.opts.taskbar || this.state == 'icon') return;
-	    
-	    if (!this.taskbarIcon) {
-	        this._createTaskbarIcon();
-	    }
-	    this.taskbarIcon.className = this.wm.opts.classIcon;
-	    if(this.wm.selectedWindow == this) {
-	        this.wm.selectedWindow = null;
-	    }
-	
-	    this.hide();
-	    this.state = 'icon';
-	
-	    var fw = this.wm._getFirstVisibleWindow();
-	    if (fw) fw.select();
-
-	    if(typeof this.oniconize === 'function') {
-	        this.oniconize();
+        // just wait done the last action
+        if (this.animating) return;
+        
+	    var ex = this.taskbarIcon.offsetLeft + this.taskbarIcon.offsetParent.offsetLeft;
+	    var ey = this.taskbarIcon.offsetTop + this.taskbarIcon.offsetParent.offsetTop;
+	    var interval = 20;
+	    var counter = 10;
+	    var step_x = (ex-this.userX)/counter;
+	    var step_y = (ey-this.userY)/counter;
+	    var step_w = this.userW/counter;
+	    var step_h = this.userH/counter;
+	    var win = this;
+        
+	    if (this.isSelected()) { // minimize
+	        if(!this.wm.taskbar || this.state === 'icon') {
+	            return;
+	        }
+	        if (!this.taskbarIcon) {
+	            this._createTaskbarIcon();
+	        }
+	        this.taskbarIcon.className = this.wm.opts.classIcon;
+	        if(this.wm.selectedWindow === this) {
+	            this.wm.selectedWindow = null;
+	        }
+	        
+	        // do an animation current -> icon
+	        this.animating = true;
+	        var animator = function () {
+	            counter -= 1;
+	            win._setPosition(ex - counter*step_x, ey - counter*step_y);
+	            win._setSize(counter*step_w, counter*step_h, false);
+	            if (counter > 0) {
+	                setTimeout(animator, interval);
+	            } else {
+	                // done animation
+	                win.animating = false;
+	                win.hide();
+	                win.state = 'icon';
+	                var fw = win.wm._getFirstVisibleWindow();
+	                if (fw) {
+	                    fw.select();
+	                }
+	                if(typeof win.oniconize === 'function') {
+	                    win.oniconize();
+	                }
+	                fw = null;
+	                win = null;
+	                animator = null;
+	            }
+	        };
+	        setTimeout(animator, interval);
+	    } else if (this.state == 'icon') { // restore
+	        // do an animation icon -> user xy
+	        this.animating = true;
+	        var animator = function () {
+	            counter -= 1;
+	            win._setPosition(ex - (10-counter)*step_x, ey - (10-counter)*step_y);
+	            win._setSize((10-counter)*step_w, (10-counter)*step_h, false);
+	            win.userH = win.h;
+	            win.userW = win.w;
+	            win.userX = win.x;
+	            win.userY = win.y;
+	            win.select();
+	            if (counter > 0) {
+	                setTimeout(animator, interval);
+	            } else {
+	                // done animation
+	                win.animating = false;
+	                win = null;
+	                animator = null;
+	            }
+	        };
+	        setTimeout(animator, interval);
+	    } else {
+	        this.select();
 	    }
     },
     
     _createTaskbarIcon: function() {
-	    if (!this.wm.opts.taskbar) return;
+	    if (!this.wm.taskbar) return;
 	    
 	    this.taskbarIcon = document.createElement('div');
 	    this.taskbarIcon.className = this.wm.opts.classIcon;
@@ -653,7 +720,7 @@ Tian.Window = Tian.Class({
 	    this.taskbarIconSpan.innerHTML = this.titleText;
 	    this.taskbarIcon.appendChild(this.taskbarIconSpan);
 	
-	    this.wm.opts.taskbar.appendChild(this.taskbarIcon);
+	    this.wm.taskbar.appendChild(this.taskbarIcon);
 	    this.components.icon = this.taskbarIcon;
 	    if (this.wm.opts.resizeIcons) this.wm._resizeIcons();
 
@@ -671,11 +738,7 @@ Tian.Window = Tian.Class({
     
     onTaskbarIconClick: function(e) {
         Tian.Event.stop(e);
-        if (this.isSelected()) {
-	        this._iconify();
-	    } else {
-	        this.select();
-	    }
+	    this._iconify();
     },
     
     onTaskbarIconDoubleClick: function(e) {

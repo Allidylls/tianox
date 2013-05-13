@@ -7,6 +7,8 @@
 // Tian Window Manager
 
 Tian.Winager = Tian.Class({
+    taskbar: null,
+    
     // array of windows
     windows: null,
     
@@ -39,8 +41,7 @@ Tian.Winager = Tian.Class({
 		    classIcon: 'txWinTaskBarIcon',
 		    classActiveIcon: 'txWinTaskBarIconActive',
 		    baseZIndex: 5000,
-		    taskbar: null,
-		    container: document.body,
+		    container: null,
 		    iconImageURL: '',
 		    defaultX: 32,
 		    defaultY: 32,
@@ -54,6 +55,16 @@ Tian.Winager = Tian.Class({
         };
         
         Tian.extend(this.opts, options);
+        
+        if (!this.opts.container) {
+            this.opts.container = document.body;
+        }
+        
+        // create taskbar
+        var taskbar = document.createElement('div');
+        taskbar.className = 'txWinTaskbar txWidgetNoSelect';
+        this.opts.container.appendChild(taskbar);
+        this.taskbar = taskbar;
         
         // check resize
         Tian.Event.observe(window, 'resize', Tian.Function.bind(this.checkResize, this));
@@ -97,15 +108,15 @@ Tian.Winager = Tian.Class({
         //save icons attached to default icons container
         for(a=0; a<this.windows.length; a++) {
             var window_a = this.windows[a];
-            if(window_a.taskbarIcon && window_a.taskbarIcon.parentNode == this.opts.taskbar) {
+            if(window_a.taskbarIcon && window_a.taskbarIcon.parentNode == this.taskbar) {
                 icns.push(window_a.taskbarIcon);
             }
         }
 
         if(icns.length < 1) return;
 
-        var tbw = this.opts.taskbar.clientWidth - gs(this.opts.taskbar,'padding-left') -
-                    gs(this.opts.taskbar,'padding-right') - 1;
+        var tbw = this.taskbar.clientWidth - gs(this.taskbar,'padding-left') -
+                    gs(this.taskbar,'padding-right') - 1;
         var iw = parseInt(tbw/icns.length);
 
         for(a=0; a<icns.length;a++) {
@@ -183,7 +194,7 @@ Tian.Winager = Tian.Class({
 		w.components.maximizer.className = 'txWinMaxBox';
 		w.title.appendChild(w.components.maximizer);
 		// iconize button
-		if(this.opts.taskbar) {
+		if(this.taskbar) {
 			w.components.iconizer = document.createElement('div');			
 			w.components.iconizer.className = 'txWinMinBox';
 			w.title.appendChild(w.components.iconizer);
@@ -210,7 +221,7 @@ Tian.Winager = Tian.Class({
 	    w._setSize(w.w,w.h,false,'');
 	    this.windows.push(w);
 	
-	    if(this.opts.taskbar) {
+	    if(this.taskbar) {
 	        w._createTaskbarIcon();
 	    }
 	
@@ -307,6 +318,8 @@ Tian.Winager = Tian.Class({
 	    if (win.components.maximizer) win.components.maximizer.className = 'txWinMaxBoxActive';
 	    if (win.components.zoomer) win.components.zoomer.className = 'txWinZoomBoxActive';
 	    this.selectedWindow = win;
+	    win._setPosition(win.userX, win.userY);
+	    win._setSize(win.userW, win.userH, false, 'restore');
 	    if(win.state=='icon' || win.state=='hidden'){
 		    win.state = win.prvState;
 		    win.prvState = null;

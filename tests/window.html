@@ -2,14 +2,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src='../build/tian.js'></script>
+<script src='../src/Tian.js'></script>
+<script src='../src/Function.js'></script>
+<script src='../src/String.js'></script>
+<script src='../src/Class.js'></script>
+<script src='../src/Event.js'></script>
+<script src='../src/Winager.js'></script>
+<script src='../src/Window.js'></script>
 <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
 <script>
 var wm = null, v, w, x, y, z;
 function init(){
      wm = new Tian.Winager({
-        container: document.getElementById('container'),
-        taskbar: document.getElementById('taskbar')
+        container: document.getElementById('container')
      });
      v =wm.createWindow({title:"窗口 1",
         iconImageURL: './img/icon-dragon.png'});
@@ -41,7 +46,6 @@ function init(){
 </head>
 <body onload="init()">
     <div id='container' style="position:relative; overflow: hidden; left: 20px; top: 20px; height: 500px; width: 800px; border: solid 1px red;">
-        <div id='taskbar' class='txWidgetTaskbar txWidgetNoSelect'></div>
     </div>
 </body>
 <script>
