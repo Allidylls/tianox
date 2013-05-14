@@ -159,6 +159,7 @@ Tian.Window = Tian.Class({
     
     // event handlers
     onTitleMouseDown: function(e) {
+        if (this.animating || this.state === 'maximized') return;
         Tian.Event.stop(e);
         this.select();
     
@@ -177,11 +178,8 @@ Tian.Window = Tian.Class({
     },
     
     onTitleMouseMove: function(e) {
+        if (this.animating || this.state === 'maximized' || !this.moving) return;
         Tian.Event.stop(e);
-    
-        if (!this.moving) { 
-            return;
-        }
     
         // move window
 	    if(!e) {
@@ -217,6 +215,7 @@ Tian.Window = Tian.Class({
     },
     
     onTitleMouseUp: function(e) {
+        if (this.animating || this.state === 'maximized' || !this.moving) return;
         Tian.Event.stop(e);
         this.moving = false;
     
@@ -233,6 +232,7 @@ Tian.Window = Tian.Class({
     },
     
     onZoomMouseDown: function(e) {
+        if (this.animating || this.state === 'maximized') return;
         Tian.Event.stop(e);
         this.select();
         this.resizing = true;
@@ -249,11 +249,8 @@ Tian.Window = Tian.Class({
     },
     
     onZoomMouseMove: function(e) {
+        if (this.animating || this.state === 'maximized' || !this.resizing) return;
         Tian.Event.stop(e);
-    
-        if (!this.resizing) {
-            return;
-        }
 	
 	    this.state = 'window';
 	    
@@ -285,6 +282,7 @@ Tian.Window = Tian.Class({
     },
 
     onZoomMouseUp: function(e) {
+        if (this.animating || this.state === 'maximized' || !this.resizing) return;
         Tian.Event.stop(e);
         this.resizing = false;
     
@@ -579,8 +577,7 @@ Tian.Window = Tian.Class({
     
     // private methods
     
-    _setPosition: function(x, y) { 
-	    this.state = 'window';
+    _setPosition: function(x, y) {
 	    this.win.style.left = x + 'px';
 	    this.win.style.top = y + 'px';
 	    this.x = x;
@@ -588,21 +585,46 @@ Tian.Window = Tian.Class({
     },
     
     _maximize: function() {
-	    if(this.state != 'maximized'){
-		    var Dw = this.win.offsetWidth - parseInt(this.win.style.width);
-		    var Dh = this.win.offsetHeight - parseInt(this.win.style.height);
-		    this.win.style.top = 0 + 'px';
-		    this.win.style.left = 0 + 'px';
-		    this.x = this.y = 1;
-		    this.state = 'maximized';
-		    var w = this.getContainerWidth() - Dw;
-		    var h = this.getContainerHeight() - Dh;
-		    this._setSize(w, h, false, 'maximize');
-	    } else {
-		    this.state = 'window';
-		    this._setSize(this.userW, this.userH, false, 'restore');
-		    this._setPosition(this.userX, this.userY);
-	    }
+        // just wait done the last action
+        if (this.animating) return;
+        
+		var interval = 20;
+	    var counter = 10;
+	    var win = this;
+		var Dw = this.win.offsetWidth - parseInt(this.win.style.width);
+		var Dh = this.win.offsetHeight - parseInt(this.win.style.height);
+		var ew = this.getContainerWidth() - Dw;
+		var eh = this.getContainerHeight() - Dh;
+		var step_x = Math.abs(1-this.userX)/counter;
+		var step_y = Math.abs(1-this.userY)/counter;
+		var step_w = Math.abs(ew-this.userW)/counter;
+		var step_h = Math.abs(eh-this.userH)/counter;
+		var state = this.state;
+		var animator = function () {
+		    counter -= 1;
+		    var idx = state === 'maximized' ? (10-counter) : counter;
+	        win._setPosition(1 + idx*step_x, 1 + idx*step_y);
+	        win._setSize(ew - idx*step_w, eh - idx*step_h, false);
+	        if (counter > 0) {
+	            setTimeout(animator, interval);
+	        } else {
+	            // done animation
+	            if (state === 'maximized') {
+		            win._setPosition(win.userX, win.userY);
+		            win._setSize(win.userW, win.userH, false, 'restore');
+		            win.state = 'window';
+		        } else {
+		            win._setPosition(1, 1);
+		            win._setSize(ew, eh, false, 'maximize');
+		            win.state = 'maximized';
+		        }
+	            win.animating = false;
+	            win = null;
+	            animator = null;
+	        }
+		};
+		this.animating = true;
+		setTimeout(animator, interval);
     },
     
     // action is used to tell enevn handler what fired the event.
@@ -693,6 +715,7 @@ Tian.Window = Tian.Class({
 	            } else {
 	                // done animation
 	                win.animating = false;
+	                win.state = 'window';
 	                win = null;
 	                animator = null;
 	            }

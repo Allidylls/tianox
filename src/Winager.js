@@ -320,7 +320,7 @@ Tian.Winager = Tian.Class({
 	    this.selectedWindow = win;
 	    win._setPosition(win.userX, win.userY);
 	    win._setSize(win.userW, win.userH, false, 'restore');
-	    if(win.state=='icon' || win.state=='hidden'){
+	    if(win.state=='icon' || win.state=='hidden' || win.state === 'maximized'){
 		    win.state = win.prvState;
 		    win.prvState = null;
 	    }
