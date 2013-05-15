@@ -595,15 +595,15 @@ Tian.Window = Tian.Class({
 		var Dh = this.win.offsetHeight - parseInt(this.win.style.height);
 		var ew = this.getContainerWidth() - Dw;
 		var eh = this.getContainerHeight() - Dh;
-		var step_x = Math.abs(1-this.userX)/counter;
-		var step_y = Math.abs(1-this.userY)/counter;
+		var step_x = Math.abs(0-this.userX)/counter;
+		var step_y = Math.abs(0-this.userY)/counter;
 		var step_w = Math.abs(ew-this.userW)/counter;
 		var step_h = Math.abs(eh-this.userH)/counter;
 		var state = this.state;
 		var animator = function () {
 		    counter -= 1;
 		    var idx = state === 'maximized' ? (10-counter) : counter;
-	        win._setPosition(1 + idx*step_x, 1 + idx*step_y);
+	        win._setPosition(0 + idx*step_x, 0 + idx*step_y);
 	        win._setSize(ew - idx*step_w, eh - idx*step_h, false);
 	        if (counter > 0) {
 	            setTimeout(animator, interval);
@@ -614,7 +614,7 @@ Tian.Window = Tian.Class({
 		            win._setSize(win.userW, win.userH, false, 'restore');
 		            win.state = 'window';
 		        } else {
-		            win._setPosition(1, 1);
+		            win._setPosition(0, 0);
 		            win._setSize(ew, eh, false, 'maximize');
 		            win.state = 'maximized';
 		        }
