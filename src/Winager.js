@@ -300,31 +300,43 @@ Tian.Winager = Tian.Class({
 	
 	    for (var a=0; a< this.windows.length; a++) { // no need to restack all windows...
 	        var window_a = this.windows[a];
+	        var selected = (window_a === win);
+	        if (selected) {
+	            win.win.style.display = '';
+	            win.win.style.visibility = 'visible';
+	        }
 		    window_a.win.style.zIndex = (this.opts.baseZIndex + a);
-		    window_a.win.className = this.opts.classWindow;
-		    if (window_a.taskbarIcon) window_a.taskbarIcon.className = this.opts.classIcon;
-		    if (window_a.components.close) window_a.components.close.className = 'txWinCloseBox';
-		    if (window_a.components.iconizer) window_a.components.iconizer.className = 'txWinMinBox';
-	        if (window_a.components.maximizer) window_a.components.maximizer.className = 'txWinMaxBox';
-	        if (window_a.components.zoomer) window_a.components.zoomer.className = 'txWinZoomBox';
+		    window_a.win.className = selected ? this.opts.classActiveWindow : this.opts.classWindow;
+		    
+		    var icon = window_a.taskbarIcon;
+		    if (icon) {
+		        icon.className = selected ? this.opts.classActiveIcon : this.opts.classIcon;
+		    }
+		    var close = window_a.components.close;
+		    if (close) {
+		        close.className = selected ? 'txWinCloseBoxActive' : 'txWinCloseBox';
+		    }
+		    var iconizer = window_a.components.iconizer;
+		    if (iconizer) {
+		        iconizer.className = selected ? 'txWinMinBoxActive' : 'txWinMinBox';
+		    }
+		    var maximizer = window_a.components.maximizer;
+	        if (maximizer) {
+	            maximizer.className = selected ? 'txWinMaxBoxActive' : 'txWinMaxBox';
+	        }
+	        var zoomer = window_a.components.zoomer;
+	        if (zoomer) {
+	            zoomer.className = selected ? 'txWinZoomBoxActive' : 'txWinZoomBox';
+	        }
 	    }
 	    
-	    win.win.style.display = '';
-	    win.win.style.visibility = 'visible';
-	    win.win.className = this.opts.classActiveWindow;
-	    if (win.taskbarIcon) win.taskbarIcon.className = this.opts.classActiveIcon;
-	    if (win.components.close) win.components.close.className = 'txWinCloseBoxActive';
-	    if (win.components.iconizer) win.components.iconizer.className = 'txWinMinBoxActive';
-	    if (win.components.maximizer) win.components.maximizer.className = 'txWinMaxBoxActive';
-	    if (win.components.zoomer) win.components.zoomer.className = 'txWinZoomBoxActive';
-	    this.selectedWindow = win;
-	    win._setPosition(win.userX, win.userY);
-	    win._setSize(win.userW, win.userH, false, 'restore');
-	    if(win.state=='icon' || win.state=='hidden' || win.state === 'maximized'){
+	    if(win.state !== 'window'){
 		    win.state = win.prvState;
 		    win.prvState = null;
 	    }
-	    if (win.onselect) win.onselect();
+	    this.selectedWindow = win;
+	    
+	    if (typeof win.onselect === 'function') win.onselect();
     },
     
     _destroyWindow: function(w) {
