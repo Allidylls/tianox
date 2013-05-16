@@ -104,32 +104,37 @@ Tian.Window = Tian.Class({
     },
     
     attachEvents: function() {
-        if (this.titleSpan) {
-            Tian.Event.observe(this.titleSpan, 'mousedown',  Tian.Function.bind(this.onTitleMouseDown, this));
-            Tian.Event.observe(this.titleSpan, 'touchstart', Tian.Function.bind(this.onTitleMouseDown, this));
-            Tian.Event.observe(this.titleSpan, 'mousemove', Tian.Function.bind(this.onTitleMouseMove, this));
-            Tian.Event.observe(this.titleSpan, 'touchmove', Tian.Function.bind(this.onTitleMouseMove, this));
-            Tian.Event.observe(this.titleSpan, 'mouseup',  Tian.Function.bind(this.onTitleMouseUp, this));
-            Tian.Event.observe(this.titleSpan, 'mouseout', Tian.Function.bind(this.onTitleMouseUp, this));
-            Tian.Event.observe(this.titleSpan, 'touchend', Tian.Function.bind(this.onTitleMouseUp, this));
+        var span = this.titleSpan;
+        if (span) {
+            Tian.Event.observe(span, 'mousedown',  Tian.Function.bind(this.onTitleMouseDown, this));
+            Tian.Event.observe(span, 'touchstart', Tian.Function.bind(this.onTitleMouseDown, this));
+            Tian.Event.observe(span, 'mousemove', Tian.Function.bind(this.onTitleMouseMove, this));
+            Tian.Event.observe(span, 'touchmove', Tian.Function.bind(this.onTitleMouseMove, this));
+            Tian.Event.observe(span, 'mouseup',  Tian.Function.bind(this.onTitleMouseUp, this));
+            Tian.Event.observe(span, 'mouseout', Tian.Function.bind(this.onTitleMouseUp, this));
+            Tian.Event.observe(span, 'touchend', Tian.Function.bind(this.onTitleMouseUp, this));
         }
-        if (this.components.close) {
-            Tian.Event.observe(this.components.close, 'click', Tian.Function.bind(this.onCloseClick, this));
+        var close = this.components.close;
+        if (close) {
+            Tian.Event.observe(close, 'click', Tian.Function.bind(this.onCloseClick, this));
         }
-        if (this.components.maximizer) {
-            Tian.Event.observe(this.components.maximizer, 'click', Tian.Function.bind(this.onMaxClick, this));
+        var maximizer = this.components.maximizer;
+        if (maximizer) {
+            Tian.Event.observe(maximizer, 'click', Tian.Function.bind(this.onMaxClick, this));
         }
-        if (this.components.iconizer) {
-            Tian.Event.observe(this.components.iconizer, 'click', Tian.Function.bind(this.onMinClick, this));
+        var iconizer = this.components.iconizer;
+        if (iconizer) {
+            Tian.Event.observe(iconizer, 'click', Tian.Function.bind(this.onMinClick, this));
         }
-        if (this.components.zoomer) {
-            Tian.Event.observe(this.components.zoomer, 'mousedown',  Tian.Function.bind(this.onZoomMouseDown, this));
-            Tian.Event.observe(this.components.zoomer, 'touchstart', Tian.Function.bind(this.onZoomMouseDown, this));
-            Tian.Event.observe(this.components.zoomer, 'mousemove', Tian.Function.bind(this.onZoomMouseMove, this));
-            Tian.Event.observe(this.components.zoomer, 'touchmove', Tian.Function.bind(this.onZoomMouseMove, this));
-            Tian.Event.observe(this.components.zoomer, 'mouseup',  Tian.Function.bind(this.onZoomMouseUp, this));
-            Tian.Event.observe(this.components.zoomer, 'mouseout', Tian.Function.bind(this.onZoomMouseUp, this));
-            Tian.Event.observe(this.components.zoomer, 'touchend', Tian.Function.bind(this.onZoomMouseUp, this));
+        var zoomer = this.components.zoomer;
+        if (zoomer) {
+            Tian.Event.observe(zoomer, 'mousedown',  Tian.Function.bind(this.onZoomMouseDown, this));
+            Tian.Event.observe(zoomer, 'touchstart', Tian.Function.bind(this.onZoomMouseDown, this));
+            Tian.Event.observe(zoomer, 'mousemove', Tian.Function.bind(this.onZoomMouseMove, this));
+            Tian.Event.observe(zoomer, 'touchmove', Tian.Function.bind(this.onZoomMouseMove, this));
+            Tian.Event.observe(zoomer, 'mouseup',  Tian.Function.bind(this.onZoomMouseUp, this));
+            Tian.Event.observe(zoomer, 'mouseout', Tian.Function.bind(this.onZoomMouseUp, this));
+            Tian.Event.observe(zoomer, 'touchend', Tian.Function.bind(this.onZoomMouseUp, this));
         }
         if (this.win) {
             Tian.Event.observe(this.win, 'click', Tian.Function.bind(this.onWinClick, this));
@@ -137,20 +142,25 @@ Tian.Window = Tian.Class({
     },
     
     detachEvents: function() {
-        if (this.titleSpan) {
-            Tian.Event.stopObservingElement(this.titleSpan);
+        var span = this.titleSpan;
+        if (span) {
+            Tian.Event.stopObservingElement(span);
         }
-        if (this.components.close) {
-            Tian.Event.stopObservingElement(this.components.close);
+        var close = this.components.close;
+        if (close) {
+            Tian.Event.stopObservingElement(close);
         }
-        if (this.components.maximizer) {
-            Tian.Event.stopObservingElement(this.components.maximizer);
+        var maximizer = this.components.maximizer;
+        if (maximizer) {
+            Tian.Event.stopObservingElement(maximizer);
         }
-        if (this.components.iconizer) {
-            Tian.Event.stopObservingElement(this.components.iconizer);
+        var iconizer = this.components.iconizer;
+        if (iconizer) {
+            Tian.Event.stopObservingElement(iconizer);
         }
-        if (this.components.zoomer) {
-            Tian.Event.stopObservingElement(this.components.zoomer);
+        var zoomer = this.components.zoomer;
+        if (zoomer) {
+            Tian.Event.stopObservingElement(zoomer);
         }
         if (this.win) {
             Tian.Event.stopObservingElement(this.win);
@@ -434,36 +444,40 @@ Tian.Window = Tian.Class({
     
     // load page cross-domain with iframe
     loadUrlX: function(url, onload) {
-	    this.showLoading();
-	    this.content.innerHTML = '';
+        var win = this;
+	    win.showLoading();
+	    
+	    var content = win.content;
+	    content.innerHTML = '';
 	
 	    // add an iframe tag into content div
 	    var frame = document.createElement('iframe');
-	    frame.className = this.wm.opts.classFrame;
+	    frame.className = win.wm.opts.classFrame;
 	    frame.setAttribute('data-wid', 'theFrame');
 	    frame.src = url;
-        
-        Tian.Event.observe(frame, 'load', (function(win, frm) { return function() {
+	    content.appendChild(frame);
+	    
+	    var on_frame_load = function () {
 	        win.currentUrl = url;
 	        win.showLoading(false);
 	        // call the outside handler
-	        if(typeof onload === 'function') onload.apply(win, [win]);
+	        if(typeof onload === 'function') {
+	            onload.apply(win, [win]);
+	        }
 	        // clear memory
-	        Tian.Event.stopObservingElement(frm);
-	    }})(this, frame));
-	
-	    // add this iframe to content
-	    this.content.appendChild(frame);
+	        Tian.Event.stopObservingElement(frame);
+	        frame = null;
+	        win = null;
+	    };
+	    
+        Tian.Event.observe(frame, 'load', on_frame_load);
     },
     
     showLoading: function(show) {
-        if (typeof show == 'undefined' || show ) {
-            this.loading.style.display = '';
-            this.loading.style.visibility = 'visible';
-        } else {
-            this.loading.style.visibility = 'hidden';
-            this.loading.style.display = 'none';
-        }
+        var is_show = (typeof show == 'undefined' || show);
+        var style = this.loading.style;
+        style.display = is_show ? '' : 'none';
+        style.visibility = is_show ? 'visible' : 'hidden';
     },
     
     setTitle: function(title) {

@@ -237,6 +237,13 @@ Tian.App = Tian.Class({
                 theFrame.contentWindow,
                 {app: this, win: window}
             );
+            
+            // click to select parent window
+            var win = this.window;
+            var on_app_click = function () {
+                win.select();
+            }
+            theFrame.contentWindow.onclick = on_app_click;
         }
     },
     

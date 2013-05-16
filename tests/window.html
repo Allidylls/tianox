@@ -16,18 +16,15 @@ function init(){
      wm = new Tian.Winager({
         container: document.getElementById('container')
      });
-     v =wm.createWindow({title:"窗口 1",
+     v =wm.createWindow({title:"窗口 v",
         iconImageURL: './img/icon-dragon.png'});
      v.loadUrlX('http://jquerymobile.com/demos/1.1.0/');
      v.moveToCenter();
-     w =wm.createWindow({title:"Window 2",
+     w =wm.createWindow({title:"Window w",
         iconImageURL: './img/icon-dragon.png'});
      w.setContent("<h1>It Works!</h1>");
-     //w.setContent("<h1>It Works!</h1>");
-     //x =wm.createWindow({title:"Window 4",iconImageURL: './img/icon.png'});
-     //x.loadUrlX(
-     //   "http://iozoonc5.city.miyazaki.miyazaki.jp/CgiStart?page=Single&Language=12"
-     //);
+     x =wm.createWindow({title:"Window x",iconImageURL: './img/icon.png'});
+     x.loadUrlX("./x.html");
      //弗吉尼亚理工大学 – 校园
      //http://128.173.201.214/view/index.shtml
      //北不列颠哥伦比亚大学

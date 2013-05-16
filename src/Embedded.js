@@ -43,20 +43,22 @@ Tian.Embedded = Tian.Class({
     // constructor
     initialize: function (options) {
         // get the super objects
-        this.theWin = (options && options.win) ? options.win : null;
-        
-        // get the super objects
         this.theApp = (options && options.app) ? options.app : null;
         
+        // get the super objects
+        var the_win = (options && options.win) ? options.win : null;
+        
         // register event handlers of the application's window
-        if (this.theWin) {
-            this.theWin.setCloseConfirm(this.closeConfirm);
-            this.theWin.onselect    = top.Tian.Function.bind(this.onSelect, this);
-            this.theWin.ondeselect  = top.Tian.Function.bind(this.onDeselect, this);
-            this.theWin.oniconize   = top.Tian.Function.bind(this.onIconize, this);
-            this.theWin.onhttperror = top.Tian.Function.bind(this.onHttpError, this);
-            this.theWin.onunload    = top.Tian.Function.bind(this.onUnload, this);
+        if (the_win) {
+            the_win.setCloseConfirm(this.closeConfirm);
+            the_win.onselect    = Tian.Function.bind(this.onSelect, this);
+            the_win.ondeselect  = Tian.Function.bind(this.onDeselect, this);
+            the_win.oniconize   = Tian.Function.bind(this.onIconize, this);
+            the_win.onhttperror = Tian.Function.bind(this.onHttpError, this);
+            the_win.onunload    = Tian.Function.bind(this.onUnload, this);
         }
+        
+        this.theWin = the_win;
         
         // run app here
         this.onRun();
@@ -84,7 +86,7 @@ Tian.Embedded = Tian.Class({
     // Looks up a key from a dictionary based on the current language string.
     // Dictionaries are stored in property dictionaries.
     i18n: function(key) {
-        return top.Tian.i18n(key, this.dictionaries);
+        return Tian.i18n(key, this.dictionaries);
     },
     
     // update default title

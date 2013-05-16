@@ -9,9 +9,10 @@
     <div id='oscanvas'></div>
 
 <script>
+    var xx = new Tian.App({page: 'x.html'});
     var os;
     function addApps(os) {
-        os.getMainPanel().addApp(new Tian.App());
+        os.getMainPanel().addApp(xx);
         os.getMainPanel().addApp(new Tian.App());
         os.getMainPanel().addApp(new Tian.App());
     }
