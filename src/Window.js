@@ -755,7 +755,6 @@ Tian.Window = Tian.Class({
 	    if (this.wm.opts.resizeIcons) this.wm._resizeIcons();
 
 	    Tian.Event.observe(icon, 'click', Tian.Function.bind(this.onTaskbarIconClick, this));
-	    Tian.Event.observe(icon, 'dblclick', Tian.Function.bind(this.onTaskbarIconDoubleClick, this));
 	    this.taskbarIcon = icon;
     },
     
@@ -770,11 +769,6 @@ Tian.Window = Tian.Class({
     onTaskbarIconClick: function(e) {
         Tian.Event.stop(e);
 	    this._iconify();
-    },
-    
-    onTaskbarIconDoubleClick: function(e) {
-        Tian.Event.stop(e);
-        this.moveToCenter();
     },
     
     _unload: function() {
