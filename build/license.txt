@@ -1,5 +1,5 @@
 //=======================================================================================================
-// Tian Observing and Control System Framework
+// Tian Web Desktop Framework
 //
 // Free use of this software is granted under the terms of the GNU Lesser General Public License (LGPL).
 // For details see: https://raw.github.com/Allidylls/tianox/master/LICENSE
