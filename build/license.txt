@@ -11,4 +11,5 @@
 // Contains portions of Node.js: https://raw.github.com/joyent/node/v0.6.18/LICENSE
 // Contains portions of md5.js: https://github.com/blueimp/Javascript-MD5
 // Contains portions of jStorage.js: http://www.jstorage.info/static/license.txt
+// Contains portions of jwim.js: https://github.com/poplix/jwim
 //-------------------------------------------------------------------------------------------------------
