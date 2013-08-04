@@ -580,6 +580,7 @@ Tian.Events = Tian.Class({
         this.listeners   = {};
         this.extensions = {};
         this.extensionCount = {};
+        this._msTouches = [];
         
         // if a dom element is specified, add a listeners list 
         // for browser events on the element and register them
@@ -636,9 +637,15 @@ Tian.Events = Tian.Class({
             );
         }
         this.element = element;
+        var msTouch = !!window.navigator.msMaxTouchPoints;
+        var type;
         for (var i=0, len=this.BROWSER_EVENTS.length; i<len; i++) {
+            type = this.BROWSER_EVENTS[i];
             // register the event cross-browser
-            Tian.Event.observe(element, this.BROWSER_EVENTS[i], this.eventHandler);
+            Tian.Event.observe(element, type, this.eventHandler);
+            if (msTouch && type.indexOf('touch') === 0) {
+                this.addMsTouchListener(element, type, this.eventHandler);
+            }
         }
         // disable dragstart in IE so that mousedown/move/up works normally
         Tian.Event.observe(element, "dragstart", Tian.Event.stop);
@@ -962,6 +969,152 @@ Tian.Events = Tian.Class({
         };
         
         return xy; 
+    },
+
+    /*
+     * Method: addMsTouchListener
+     *
+     * Parameters:
+     * element - {DOMElement} The DOM element to register the listener on
+     * type - {String} The event type
+     * handler - {Function} the handler
+     */
+    addMsTouchListener: function (element, type, handler) {
+        var eventHandler = this.eventHandler;
+        var touches = this._msTouches;
+
+        var msHandler = function (evt) {
+            handler(Tian.applyDefaults({
+                stopPropagation: function () {
+                    for (var i=touches.length-1; i>=0; --i) {
+                        touches[i].stopPropagation();
+                    }
+                },
+                preventDefault: function () {
+                    for (var i=touches.length-1; i>=0; --i) {
+                        touches[i].preventDefault();
+                    }
+                },
+                type: type
+            }, evt));
+        };
+
+        switch (type) {
+            case 'touchstart':
+                return this.addMsTouchListenerStart(element, type, msHandler);
+            case 'touchend':
+                return this.addMsTouchListenerEnd(element, type, msHandler);
+            case 'touchmove':
+                return this.addMsTouchListenerMove(element, type, msHandler);
+            default:
+                throw 'Unknown touch event type';
+        }
+    },
+
+    /**
+     * Method: addMsTouchListenerStart
+     *
+     * Parameters:
+     * element - {DOMElement} The DOM element to register the listener on
+     * type - {String} The event type
+     * handler - {Function} the handler
+     */
+    addMsTouchListenerStart: function(element, type, handler) {
+        var touches = this._msTouches;
+
+        var cb = function(e) {
+
+            var alreadyInArray = false;
+            for (var i=0, ii=touches.length; i<ii; ++i) {
+                if (touches[i].pointerId == e.pointerId) {
+                    alreadyInArray = true;
+                    break;
+                }
+            }
+            if (!alreadyInArray) {
+                touches.push(e);
+            }
+
+            e.touches = touches.slice();
+            handler(e);
+        };
+
+        Tian.Event.observe(element, 'MSPointerDown', cb);
+
+        // Need to also listen for end events to keep the _msTouches list
+        // accurate
+        var internalCb = function(e) {
+            for (var i=0, ii=touches.length; i<ii; ++i) {
+                if (touches[i].pointerId == e.pointerId) {
+                    touches.splice(i, 1);
+                    break;
+                }
+            }
+        };
+        Tian.Event.observe(element, 'MSPointerUp', internalCb);
+    },
+
+    /**
+     * Method: addMsTouchListenerMove
+     *
+     * Parameters:
+     * element - {DOMElement} The DOM element to register the listener on
+     * type - {String} The event type
+     * handler - {Function} the handler
+     */
+    addMsTouchListenerMove: function (element, type, handler) {
+        var touches = this._msTouches;
+        var cb = function(e) {
+
+            //Don't fire touch moves when mouse isn't down
+            if (e.pointerType == e.MSPOINTER_TYPE_MOUSE && e.buttons == 0) {
+                return;
+            }
+
+            if (touches.length == 1 && touches[0].pageX == e.pageX &&
+                    touches[0].pageY == e.pageY) {
+                // don't trigger event when pointer has not moved
+                return;
+            }
+            for (var i=0, ii=touches.length; i<ii; ++i) {
+                if (touches[i].pointerId == e.pointerId) {
+                    touches[i] = e;
+                    break;
+                }
+            }
+
+            e.touches = touches.slice();
+            handler(e);
+        };
+
+        Tian.Event.observe(element, 'MSPointerMove', cb);
+    },
+
+    /**
+     * Method: addMsTouchListenerEnd
+     *
+     * Parameters:
+     * element - {DOMElement} The DOM element to register the listener on
+     * type - {String} The event type
+     * handler - {Function} the handler
+     */
+    addMsTouchListenerEnd: function (element, type, handler) {
+        var touches = this._msTouches;
+
+        var cb = function(e) {
+
+            for (var i=0, ii=touches.length; i<ii; ++i) {
+                if (touches[i].pointerId == e.pointerId) {
+                    touches.splice(i, 1);
+                    break;
+                }
+            }
+            
+            e.touches = touches.slice();
+            handler(e);
+        };
+
+        Tian.Event.observe(element, 'MSPointerUp', cb);
     },
 
     CLASS_NAME: "Tian.Events"
