@@ -393,17 +393,13 @@ Tian.String = {
         // %        note 2: I am unclear on how WS is to be handled here because documentation seems to me to contradict PHP behavior
         // *     example 1: sscanf('SN/2350001', 'SN/%d');
         // *     returns 1: [2350001]
-        // *     example 2: var myVar; // Will be set by function
-        // *     example 2: sscanf('SN/2350001', 'SN/%d', 'myVar');
-        // *     returns 2: 1
-        // *     example 3: sscanf("10--20", "%2$d--%1$d"); // Must escape '$' in PHP, but not JS
-        // *     returns 3: [20, 10]
+        // *     example 2: sscanf("10--20", "%2$d--%1$d"); // Must escape '$' in PHP, but not JS
+        // *     returns 2: [20, 10]
 
         // SETUP
         var retArr = [],
             _NWS = /\S/,
             args = arguments,
-            that = this,
             digit;
 
         var _setExtraConversionSpecs = function (offset) {
@@ -419,17 +415,7 @@ Tian.String = {
                     retArr.push(null);
                 }
             }
-            return _finish();
-        };
-
-        var _finish = function () {
-            if (args.length === 2) {
-                return retArr;
-            }
-            for (var i = 0; i < retArr.length; ++i) {
-                that.window[args[i + 2]] = retArr[i];
-            }
-            return i;
+            return retArr;
         };
 
         var _addNext = function (j, regex, cb) {
@@ -625,7 +611,7 @@ Tian.String = {
         }
 
         // POST-PROCESSING
-        return _finish();
+        return retArr;
     }
 };
 
