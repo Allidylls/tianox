@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+<body>
+<div class=content>
+
+<div class=reftitle>Tian.Events</div>
+<p>Class contains utility functions for arbitrary event handling.</p>
+
+<a name=Tian.Events></a>
+<h3><code>Tian.Events(obj, element, fall, options)</code></h3>
+<p><b>Constructor</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>obj</span> - <code>object</code>, the js object to which this Events object is being added<br />
+    <span class=parameters>element</span> - <code>DOMElement</code>, a DOM element to respond to browser events<br />
+    <span class=parameters>fall</span> - <code>boolean</code>, allow events to fall through after these have been handled?<br />
+    <span class=parameters>options</span> - <code>object</code>, options for the events instance
+</p>
+<p><b>Returns: </b><code>object</code></p>
+<p>Construct an <code>Tian.Events</code> instance object.</p>
+
+<a name=.BROWSER_EVENTS></a>
+<h3><code>.BROWSER_EVENTS</code></h3>
+<p><b>Constant: </b><code>array</code></p>
+<p>Supported browser events:</p>
+<ul>
+<li>mouseover</li>
+<li>mouseout</li>
+<li>mousedown</li>
+<li>mouseup</li>
+<li>mousemove</li>
+<li>click</li>
+<li>dblclick</li>
+<li>rightclick</li>
+<li>dblrightclick</li>
+<li>resize</li>
+<li>focus</li>
+<li>blur</li>
+<li>touchstart</li>
+<li>touchmove</li>
+<li>touchend</li>
+</ul>
+
+<a name=.fallThrough></a>
+<h3><code>.fallThrough</code></h3>
+<p><b>Property: </b><code>boolean</code></p>
+<p>Determine whether event was propagated fall through.</p>
+
+<a name=.includeXY></a>
+<h3><code>.includeXY</code></h3>
+<p><b>Property: </b><code>boolean</code></p>
+<p>Should the .xy property automatically be created for browser mouse events?</p>
+
+<a name=.destroy></a>
+<h3><code>.destroy()</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b>
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Destroy this instance.</p>
+
+<a name=.register></a>
+<h3><code>.register(type, obj, func, priority)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>type</span> - <code>string</code>, name of the event to register<br />
+    <span class=parameters>obj</span> - <code>object</code>, the object to bind the context to for the callback, defaults to <code>this.object</code><br />
+    <span class=parameters>func</span> - <code>function</code>, the callback function, if no callback is specified, this function does nothing<br />
+    <span class=parameters>priority</span> - <code>boolean</code>, if true, adds the new listener to the front of the events queue, defaults to false
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Register an event on the events object.
+    When the event is triggered, the 'func' function will be called, in the context of 'obj'.</p>
+
+<a name=.unregister></a>
+<h3><code>.unregister(type, obj, func)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>type</span> - <code>string</code>, name of the event to unregister<br />
+    <span class=parameters>obj</span> - <code>object</code>, the object to bind the context to for the callback, defaults to <code>this.object</code><br />
+    <span class=parameters>func</span> - <code>function</code>, the callback function
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Unregister an event.</p>
+
+<a name=.on></a>
+<h3><code>.on(obj)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>obj</span> - <code>object</code>
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Convenience method for registering listeners with a common scope.
+     Internally, this method calls <code>this.register</code> as shown in the examples below.</p>
+<p>Examples:</p>
+<pre><code>&nbsp;&nbsp;&nbsp;&nbsp;// register a single listener for the "loadstart" event
+    events.on({"loadstart": loadStartListener});
+    
+    // this is equivalent to the following
+    events.register("loadstart", undefined, loadStartListener);
+    
+    // register multiple listeners to be called with the same `this` object
+    events.on({
+        "loadstart": loadStartListener,
+        "loadend": loadEndListener,
+        scope: object
+    });
+    
+    // this is equivalent to the following
+    events.register("loadstart", object, loadStartListener);
+    events.register("loadend", object, loadEndListener);
+</code></pre>
+
+<a name=.un></a>
+<h3><code>.un(obj)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>obj</span> - <code>object</code>
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Convenience method for unregistering listeners with a common scope.
+    Internally, this method calls <code>this.unregister</code> as shown in the examples below.</p>
+<p>Examples:</p>
+<pre><code>&nbsp;&nbsp;&nbsp;&nbsp;// unregister a single listener for the "loadstart" event
+    events.un({"loadstart": loadStartListener});
+    
+    // this is equivalent to the following
+    events.unregister("loadstart", undefined, loadStartListener);
+    
+    // unregister multiple listeners with the same `this` object
+    events.un({
+        "loadstart": loadStartListener,
+        "loadend": loadEndListener,
+        scope: object
+    });
+    
+    // this is equivalent to the following
+    events.unregister("loadstart", object, loadStartListener);
+    events.unregister("loadend", object, loadEndListener);
+</code></pre>
+
+<a name=.remove></a>
+<h3><code>.remove(type)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>type</span> - <code>string</code>, name of event
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Remove all listeners for a given event type. If type is not registered, does nothing.</p>
+
+<a name=.emit></a>
+<h3><code>.emit(type, event)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>type</span> - <code>string</code>, name of event<br />
+    <span class=parameters>event</span> - <code>object</code>, event object
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Trigger a specified registered event.
+    If a listener returns false, the chain of listeners will stop getting called.</p>
+
+<a name=.clearMouseCache></a>
+<h3><code>.clearMouseCache()</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b>
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p> Clear cached data about the mouse position.
+    This should be called any time the element that events are registered on changes position within the page.</p>
+
+</div>
+
+</body>
+</html>

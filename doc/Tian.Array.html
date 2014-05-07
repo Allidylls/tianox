@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+
+<body>
+<div class=content>
+
+<div class=reftitle>Tian.Array</div>
+<p>Sub namespace contains convenience functions for array manipulation.</p>
+
+<a name=Tian.Array.isArray></a>
+<h3><code>Tian.Array.isArray(obj)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>obj</span> - <code>object</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Returns true if an object is an array, false if it is not.</p>
+
+<a name=Tian.Array.indexOf></a>
+<h3><code>Tian.Array.indexOf(array, obj)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>array</span> - <code>object</code><br />
+    <span class=parameters>obj</span> - <code>object</code>
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Returns the index at, which the first object was found in the array. If not found, returns -1.</p>
+
+<a name=Tian.Array.removeItem></a>
+<h3><code>Tian.Array.removeItem(array, item)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>array</span> - <code>object</code><br />
+    <span class=parameters>item</span> - <code>object</code>, the item will be removed
+</p>
+<p><b>Returns: </b><code>array</code></p>
+<p>Remove an object from an array. Iterates through the array to find the item, then removes it. 
+		    Returns a reference to the array.</p>
+
+<a name=Tian.Array.filter></a>
+<h3><code>Tian.Array.filter(array, callback, caller)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>array</span> - <code>object</code><br />
+    <span class=parameters>callback</span> - <code>function</code>, filter function<br />
+    <span class=parameters>caller</span> - <code>object</code>, optional caller of callback function
+</p>
+<p><b>Returns: </b><code>array</code></p>
+<p>Returns an array of elements from the passed in array for which the callback returns true.
+		    Provides the functionality of the <code>Array.prototype.filter</code> extension to the ECMA-262 standard.
+		    Where available, <code>Array.prototype.filter</code> will be used. Based on well known example from
+		    <a target=_blank href=http://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Array/filter>
+		    http://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Array/filter</a>.
+		    The optional caller object to be set as this when the callback is called.</p>
+
+</div>
+
+</body>
+</html>

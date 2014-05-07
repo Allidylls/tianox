@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+<body>
+<div class=content>
+
+<div class=reftitle>Tian.Class</div>
+<p>The class menufactory.
+	    All Tian styled class hierarchies should be constructed by this fundamental function.</p>
+
+<a name=Tian.Class></a>
+<h3><code>Tian.Class(P, proto)</code></h3>
+<p><b>Constructor</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>P</span> - <code>class</code>, parent class<br />
+    <span class=parameters>proto</span> - <code>object</code>, prototype object
+</p>
+<p><b>Returns: </b><code>class</code></p>
+<p>Base class used to constructe all other classes, including support for multiple inheritance.</p>    
+<p>To create a new Tian styled class, use the following syntax:<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>var MyClass = Tian.Class(prototype);</code></p>
+<p>To create a new Tian styled class with multiple inheritance, use the following syntax:<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>var MyClass = Tian.Class(Class1, Class2, prototype);</code></p>
+<p>Note that <code>instanceof</code> reflection will only reveal Class1 as superclass.</p>
+<p>A Tian styled class does have a member function <code>initialize</code> as the constructor which will be called
+    immediately when an instance object of this class is created with <code>new</code> operator.
+</p>
+</div>
+
+</body>
+</html>

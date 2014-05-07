@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+<body>
+<div class=content>
+
+<div class=reftitle>Tian.Date</div>
+<p>Sub namespace contains convenience functions for date-time manipulation.</p>
+
+<a name=Tian.Date.doy></a>
+<h3><code>Tian.Date.doy(date)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>date</span> - <code>object</code>, instance of <code>Date</code>
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Returns day of year.</p>
+
+<a name=Tian.Date.format></a>
+<h3><code>Tian.Date.format(date, mask)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>date</span> - <code>object</code>, instance of <code>Date</code><br />
+    <span class=parameters>mask</span> - <code>string</code>, optional mask string
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Returns a default formatted date-time string. If a mask is set, the format of mask will be used. Supported masks:</p>
+<ul>
+            <li>yy: short year, eg: 12</li>
+            <li>yyyy: long year, eg: 2012</li>
+            <li>m: short month, 0 - 12</li>
+            <li>mm: long month, 00 - 12</li>
+            <!--li>mmm: short literal month, eg: Mar</li>
+            <li>mmmm: long literal month, eg: March</li-->
+            <li>d: short day of month, 0 - 31</li>
+            <li>dd: long day of month, 00 - 31</li>
+            <!--li>ddd: short literal day of week, eg: Mon</li>
+            <li>dddd: long literal day of week, eg: Monday</li-->
+            <li>h: short hour, 0 - 11</li>
+            <li>hh: 2-digit hour, 00-11</li>
+            <li>H: short hour, 0 - 23</li>
+            <li>HH: 2-digit hour, 00 - 23</li>
+            <li>M: short minute, 0 - 59</li>
+            <li>MM: 2-digit minute, 00 - 59</li>
+            <li>S: short second, 0 - 59</li>
+            <li>SS: 2-digit second, 00 - 59</li>
+            <li>l: 2-digit millisecond, 00 - 99</li>
+            <li>L: 3-digit millisecond, 000 - 999</li>
+</ul>
+<p>Examples:</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.Date.format(new Date()) // "Tue Mar 06 2012 10:24:55 GMT+0800 (CST)"</code><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.Date.format(new Date(), "dd/mm/yy") // "06/03/12"</code><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.Date.format(new Date(), "yyyy-mm-dd HH:MM:SS") // "2012-03-06 10:27:31"</code><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.Date.format(new Date(), "yyyy-mm-dd HH:MM:SS.L") // "2012-03-06 10:28:22.464"</code>
+</p>
+
+<a name=Tian.Date.parse></a>
+<h3><code>Tian.Date.parse(str)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>str</span> - <code>string</code>, A string representing the date
+</p>
+<p><b>Returns: </b><code>object</code></p>
+<p>Generate a date object from a string. 
+    If the string could not be parsed, an invalid date is returned (i.e. <code>isNaN(date.getTime())</code>).
+    The format for the string follows the profile of ISO 8601 for date and time on the Internet 
+    (see <a target=_blank href="http://tools.ietf.org/html/rfc3339">http://tools.ietf.org/html/rfc3339</a>).</p>
+<p>We don't call the native <code>Date.parse</code> because of inconsistency between implementations.
+    In Chrome, calling <code>Date.parse</code> with a string that doesn't contain any indication of the timezone
+    (e.g. "2011"), the date is interpreted in local time. On Firefox, the assumption is UTC.</p>
+<p>Examples:</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.Date.parse("2011")</code><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.Date.parse("2011-10")</code><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.Date.parse("2011-10-21")</code><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.Date.parse("2011-10-21T20:00:01.123Z")</code><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.Date.parse("2011-10-21T20:00:01.123+08")</code>
+</p>
+</div>
+
+</body>
+</html>

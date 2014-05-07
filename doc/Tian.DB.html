@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+<body>
+<div class=content>
+
+<div class=reftitle>Tian.DB</div>
+<p>Sub namespace contains convenience functions for local storage manipulation.</p>
+
+<a name=Tian.DB.storageAvailable></a>
+<h3><code>Tian.DB.storageAvailable()</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Returns <code>true</code> if local storage is available.</p>
+
+<a name=Tian.DB.get></a>
+<h3><code>Tian.DB.get(key, default)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>key</span> - <code>string</code>, key to look up<br />
+    <span class=parameters>default</span> - <code>string</code>, optional default value, if key didn't exist
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Returns the key value, default value or <code>null</code>.</p>
+
+<a name=Tian.DB.set></a>
+<h3><code>Tian.DB.set(key, value)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>key</span> - <code>string</code>, key to set<br />
+    <span class=parameters>value</span> - <code>string | number | object</code>
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Returns the used value.</p>
+
+<a name=Tian.DB.index></a>
+<h3><code>Tian.DB.index()</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b>
+</p>
+<p><b>Returns: </b><code>array</code></p>
+<p>Returns an array of all used keys.</p>
+
+<a name=Tian.DB.deleteKey></a>
+<h3><code>Tian.DB.deleteKey(key)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>key</span> - <code>string</code>, key to delete<br />
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Returns <code>true</code> if key existed or <code>false</code> if it didn't.</p>
+
+<a name=Tian.DB.flush></a>
+<h3><code>Tian.DB.flush()</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Deletes everything in cache and returns <code>true</code>.</p>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+<body>
+<div class=content>
+
+<div class=reftitle>Tian.Event</div>
+<p>Sub namespace contains utility functions for browser event handling.</p>
+
+<a name=Tian.Event.element></a>
+<h3><code>Tian.Event.element(event)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>event</span> - <code>object</code>
+</p>
+<p><b>Returns: </b><code>DOMElement</code></p>
+<p>Cross browser event element detection. Returns the element that caused the event.</p>
+
+<a name=Tian.Event.isSingleTouch></a>
+<h3><code>Tian.Event.isSingleTouch(event)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>event</span> - <code>object</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Determine whether event was caused by a single touch.</p>
+
+<a name=Tian.Event.isMultiTouch></a>
+<h3><code>Tian.Event.isMultiTouch(event)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>event</span> - <code>object</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Determine whether event was caused by a multi touch.</p>
+
+<a name=Tian.Event.isLeftClick></a>
+<h3><code>Tian.Event.isLeftClick(event)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>event</span> - <code>object</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Determine whether event was caused by a left mouse click.</p>
+
+<a name=Tian.Event.isRightClick></a>
+<h3><code>Tian.Event.isRightClick(event)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>event</span> - <code>object</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Determine whether event was caused by a right mouse click.</p>
+
+<a name=Tian.Event.stop></a>
+<h3><code>Tian.Event.stop(event, default)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>event</span> - <code>object</code><br />
+    <span class=parameters>default</span> - <code>boolean</code>, to allow the default browser behaviour, defaults to false
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Stops an event from propagating. If default true, we stop the event chain but still allow the default browser 
+     behaviour (text selection, radio-button clicking, etc).</p>
+
+<a name=Tian.Event.findElement></a>
+<h3><code>Tian.Event.findElement(event, tag)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>event</span> - <code>object</code><br />
+    <span class=parameters>tag</span> - <code>string</code>, HTML tag name
+</p>
+<p><b>Returns: </b><code>DOMElement</code></p>
+<p>The first node with the given tag,
+    starting from the node the event was triggered on and traversing the DOM upwards.</p>
+
+<a name=Tian.Event.observe></a>
+<h3><code>Tian.Event.observe(element, name, observer, capture)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>event</span> - <code>DOMElement | string</code>, DOM or DOM id<br />
+    <span class=parameters>name</span> - <code>string</code>, event name<br />
+    <span class=parameters>observer</span> - <code>function</code>, event handler<br />
+    <span class=parameters>capture</span> - <code>boolean</code>, use capture or not, defaults to false
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Starts to observe a DOM element with observer.</p>
+
+<a name=Tian.Event.stopObserving></a>
+<h3><code>Tian.Event.stopObserving(element, name, observer, capture)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>event</span> - <code>DOMElement | string</code>, DOM or DOM id<br />
+    <span class=parameters>name</span> - <code>string</code>, event name<br />
+    <span class=parameters>observer</span> - <code>function</code>, event handler<br />
+    <span class=parameters>capture</span> - <code>boolean</code>, use capture or not, defaults to false
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Returns whether or not the event observer was removed.</p>
+
+<a name=Tian.Event.stopObservingElement></a>
+<h3><code>Tian.Event.stopObservingElement(element)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>event</span> - <code>DOMElement | string</code>, DOM or DOM id
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Given the id of an element to stop observing, cycle through the element's cached observers, 
+    calling stopObserving on each one, skipping those entries which can no longer be removed.</p>
+
+<a name=Tian.Event.unloadCache></a>
+<h3><code>Tian.Event.unloadCache()</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b>
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Cycle through all the element entries in the events cache and call stopObservingElement on each.</p>
+<p>Note, for preventing memory leaks in IE,
+    this function will be called on unload event of <code>window</code> by default.</p>
+
+</div>
+
+</body>
+</html>

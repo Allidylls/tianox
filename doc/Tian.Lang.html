@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+<body>
+<div class=content>
+
+<div class=reftitle>Tian.Lang</div>
+<p>Sub namespace contains internationalization functions.</p>
+
+<a name=Tian.Lang.setCode></a>
+<h3><code>Tian.Lang.setCode(code)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>code</span> - <code>string</code>, language code
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Set the language code for string translation.
+    This code is used by the <code>Tian.Lang.translate</code> method.
+    These codes follow the IETF recommendations at
+    <a target=_blank href=http://www.ietf.org/rfc/rfc3066.txt>http://www.ietf.org/rfc/rfc3066.txt</a>.
+    If no value is set, the browser's language setting will be tested.</p>
+
+<a name=Tian.Lang.getCode></a>
+<h3><code>Tian.Lang.getCode()</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b>
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Returns the current language code.</p>
+
+<a name=Tian.Lang.add></a>
+<h3><code>Tian.Lang.add(code, key, word)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>code</span> - <code>string</code>, language code<br />
+    <span class=parameters>key</span> - <code>string</code>, key of word<br />
+    <span class=parameters>word</span> - <code>string</code>, word in code
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Returns whether an item be added into dictionary successfully.
+    The dictionary can be extended (NOT modified) dynamically by calling this method.</p>
+
+<a name=Tian.Lang.translate></a>
+<h3><code>Tian.Lang.translate(key)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>key</span> - <code>string</code>, key of word
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Returns a internationalized string. Looks up a key from a dictionary based on the current language string.
+    The value of <code>Tian.Lang.getCode</code> will be used to determine the appropriate dictionary.
+    Dictionaries are stored in <code>Tian.Lang[code]</code>.</p>
+
+<a name=Tian.i18n></a>
+<h3><code>Tian.i18n(key)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>key</span> - <code>string</code>, key of word
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Alias of <code>Tian.Lang.translate</code>.</p>
+
+</div>
+
+</body>
+</html>

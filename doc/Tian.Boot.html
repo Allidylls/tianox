@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+
+<body>
+<div class=content>
+
+<div class=reftitle>Boot Mechanism</div>
+<p><code>Tian</code> has a mechanism to start applicatons automatically and load required resources sequentially.</p>
+<p>There are two steps for doing this:</p>
+<p>1, Add a <code>data-boot</code> attribute to the script tag which <code>src</code> is the main Tian script file, eg:</p>
+<p><code><pre>
+    &lt;script src=tian.js data-boot=boot.js&gt;&lt;/script&gt;</pre></code></p>
+<p>2, Load required resources and run the applicaton in the scirpt file referenced by <code>data-boot</code>, eg:</p>
+<p><code><pre>
+    Tian.require(['a.js', 'b.js', 'c.js'], function() {
+        Tian.require(['x.js', 'y.js'], function() {
+           var app = new MyApp();
+           app.run();
+        });
+    });</pre></code></p>
+<p>That will do!</p>
+
+</div>
+
+</body>
+</html>

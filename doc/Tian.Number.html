@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+<body>
+<div class=content>
+
+<div class=reftitle>Tian.Number</div>
+<p>Sub namespace contains convenience functions for number manipulation.</p>
+
+<a name=Tian.Number.limitSigDigs></a>
+<h3><code>Tian.Number.limitSigDigs(num, sig)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>num</span> - <code>number</code>, float instance of <code>Number</code><br />
+    <span class=parameters>sig</span> - <code>number</code>, number of significant digits
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Returns the number, rounded to the specified number of significant digits.</p>
+
+<a name=Tian.Number.limitFixDigs></a>
+<h3><code>Tian.Number.limitFixDigs(num, fix)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>num</span> - <code>number</code>, float instance of <code>Number</code><br />
+    <span class=parameters>fix</span> - <code>number</code>, number of fixed digits
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Returns the number, rounded to the specified number of fixed digits.</p>
+
+<a name=Tian.Number.format></a>
+<h3><code>Tian.Number.format(num, dec, tsep, dsep)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>num</span> - <code>number</code>, float instance of <code>Number</code><br />
+    <span class=parameters>dec</span> - <code>number</code>, integer of decimal places to round to, defaults to 0<br />
+    <span class=parameters>tsep</span> - <code>string</code>, thousands separator, default is ","<br />
+    <span class=parameters>dsep</span> - <code>string</code>, decimal separator, default is "."
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Returns a string representing the formatted number.</p>
+
+<a name=Tian.Number.zeroize></a>
+<h3><code>Tian.Number.zeroize(num, length)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>num</span> - <code>number</code><br />
+    <span class=parameters>length</span> - <code>number</code>, length of returned string, defaults to 2
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Returns a zero-prefixed string of value which length is specified length or 2 by default.</p>
+
+</div>
+
+</body>
+</html>

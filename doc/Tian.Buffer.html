@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+<body>
+<div class=content>
+
+<div class=reftitle>Tian.Buffer</div>
+<p>Class for handling fixed length octet buffer.</p>
+
+<a name=Tian.Buffer></a>
+<h3><code>Tian.Buffer(obj, encoding)</code></h3>
+<p><b>Constructor</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>obj</span> - <code>number | array | string</code><br />
+    <span class=parameters>encoding</span> - <code>string</code>, supported encodings are hex and base64, defaults to hex
+</p>
+<p><b>Returns: </b><code>object</code></p>
+<p>Constructs an instance of <code>Tian.Buffer</code>.</p>
+<p>Examples:</p>
+<pre><code>&nbsp;&nbsp;&nbsp;&nbsp;var buffer1 = new Tian.Buffer(4);
+    var buffer2 = new Tian.Buffer([0xE0, 0x11, 0x0A, 0xFF]);
+    var buffer3 = new Tian.Buffer('E0110AFF', 'hex');
+</code></pre>
+
+<a name=.getLength></a>
+<h3><code>.getLength()</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b>
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Returns number of bytes of the buffer.</p>
+
+<a name=.toString></a>
+<h3><code>.toString(encoding)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>encoding</span> - <code>string</code>, encoding of returned string, defaults to hex
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Convert buffer to string in specific encoding.</p>
+
+<a name=.getChar></a>
+<h3><code>.getChar(offset)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>offset</span> - <code>number</code>, byte offset from the front of buffer
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Read one character from buffer at offset. Returns <code>undefined</code> on failure.</p>
+
+<a name=.getString></a>
+<h3><code>.getString(offset, length)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>length</span> - <code>number</code>, string length
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Read one length*1 bytes UTF-8 string from buffer at offset. Returns <code>undefined</code> on failure.</p>
+
+<a name=.getUInt8></a>
+<h3><code>.getUInt8(offset)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>offset</span> - <code>number</code>
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Read one unsigned 1-byte integer from buffer at offset. Returns <code>undefined</code> on failure.</p>
+
+<a name=.getUInt16></a>
+<h3><code>.getUInt16(offset, bigEndian)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>bigEndian</span> - <code>boolean</code>, if true, the value is in big-endian encoding, defaults to false
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Read one unsigned 2-bytes integer from buffer at offset. Returns <code>undefined</code> on failure.</p>
+
+<a name=.getUInt32></a>
+<h3><code>.getUInt32(offset, bigEndian)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>bigEndian</span> - <code>boolean</code>
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Read one unsigned 4-bytes integer from buffer at offset. Returns <code>undefined</code> on failure.</p>
+
+<a name=.getInt8></a>
+<h3><code>.getInt8(offset)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>offset</span> - <code>number</code>
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Read one signed 1-byte integer from buffer at offset. Returns <code>undefined</code> on failure.</p>
+
+<a name=.getInt16></a>
+<h3><code>.getInt16(offset, bigEndian)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>bigEndian</span> - <code>boolean</code>
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Read one signed 2-bytes integer from buffer at offset. Returns <code>undefined</code> on failure.</p>
+
+<a name=.getInt32></a>
+<h3><code>.getInt32(offset, bigEndian)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>bigEndian</span> - <code>boolean</code>
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Read one signed 4-bytes integer from buffer at offset. Returns <code>undefined</code> on failure.</p>
+
+<a name=.getFloat></a>
+<h3><code>.getFloat(offset, bigEndian)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>bigEndian</span> - <code>boolean</code>
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Read one 4-bytes float number from buffer at offset. Returns <code>undefined</code> on failure.</p>
+
+<a name=.getDouble></a>
+<h3><code>.getDouble(offset, bigEndian)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>bigEndian</span> - <code>boolean</code>
+</p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Read one 8-bytes double number from buffer at offset. Returns <code>undefined</code> on failure.</p>
+
+<a name=.setChar></a>
+<h3><code>.setChar(value, offset)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>value</span> - <code>string</code>, ASCII character<br />
+    <span class=parameters>offset</span> - <code>number</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Write one character to buffer at offset. Returns true on success.</p>
+
+<a name=.setString></a>
+<h3><code>.setString(value, offset)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>value</span> - <code>string</code>, UTF-8 string<br />
+    <span class=parameters>offset</span> - <code>number</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Write one UTF-8 string to buffer at offset. Returns true on success.</p>
+
+<a name=.setUInt8></a>
+<h3><code>.setUInt8(value, offset)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>value</span> - <code>number</code>, unsigned integer within [0x00, 0xFF]<br />
+    <span class=parameters>offset</span> - <code>number</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Write one unsigned 1-byte integer to buffer at offset. Returns true on success.</p>
+
+<a name=.setUInt16></a>
+<h3><code>.setUInt16(value, offset, bigEndian)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>value</span> - <code>number</code>, unsigned integer within [0x0000, 0xFFFF]<br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>bigEndian</span> - <code>boolean</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Write one unsigned 2-bytes integer to buffer at offset. Returns true on success.</p>
+
+<a name=.setUInt32></a>
+<h3><code>.setUInt32(value, offset, bigEndian)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>value</span> - <code>number</code>, unsigned integer within [0x00000000, 0xFFFFFFFF]<br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>bigEndian</span> - <code>boolean</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Write one unsigned 4-bytes integer to buffer at offset. Returns true on success.</p>
+
+<a name=.setInt8></a>
+<h3><code>.setInt8(value, offset)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>value</span> - <code>number</code>, signed integer within [-0x80, 0x7F]<br />
+    <span class=parameters>offset</span> - <code>number</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Write one signed 1-byte integer to buffer at offset. Returns true on success.</p>
+
+<a name=.setInt16></a>
+<h3><code>.setInt16(value, offset, bigEndian)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>value</span> - <code>number</code>, signed integer within [-0x8000, 0x7FFF]<br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>bigEndian</span> - <code>boolean</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Write one signed 2-bytes integer to buffer at offset. Returns true on success.</p>
+
+<a name=.setInt32></a>
+<h3><code>.setInt32(value, offset, bigEndian)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>value</span> - <code>number</code>, signed integer within [-0x80000000, 0x7FFFFFFF]<br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>bigEndian</span> - <code>boolean</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Write one signed 4-bytes integer to buffer at offset. Returns true on success.</p>
+
+<a name=.setFloat></a>
+<h3><code>.setFloat(value, offset, bigEndian)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>value</span> - <code>number</code>, float number within [-3.4028234663852886e+38, 3.4028234663852886e+38]<br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>bigEndian</span> - <code>boolean</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Write one 4-bytes float number to buffer at offset. Returns true on success.</p>
+
+<a name=.setDouble></a>
+<h3><code>.setDouble(value, offset, bigEndian)</code></h3>
+<p><b>Instance method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>value</span> - <code>number</code>, double number within [-1.7976931348623157E+308, 1.7976931348623157E+308]<br />
+    <span class=parameters>offset</span> - <code>number</code><br />
+    <span class=parameters>bigEndian</span> - <code>boolean</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Write one 8-bytes double number to buffer at offset. Returns true on success.</p>
+
+</div>
+
+</body>
+</html>

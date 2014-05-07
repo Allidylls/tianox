@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+
+<body>
+<div class=content>
+
+<div class=reftitle>Tian</div>
+<p>Global namespace contains all constants, properties, methods, namespaces and classes.</p>
+
+<a name=Tian.VERSION></a>
+<h3><code>Tian.VERSION</code></h3>
+<p><b>Constant: </b><code>string</code></p>
+<p>The version number string of <code>Tian</code>.</p>
+
+<a name=Tian.ISGECKO></a>
+<h3><code>Tian.ISGECKO</code></h3>
+<p><b>Constant: </b><code>boolean</code></p>
+<p>True if the userAgent reports the browser to use the Gecko engine.</p>
+
+<a name=Tian.BROWSER></a>
+<h3><code>Tian.BROWSER</code></h3>
+<p><b>Constant: </b><code>string</code></p>
+<p>A substring of the <code>navigator.userAgent</code> property.
+    Depending on the userAgent property, this will be the empty string or one of the following:
+    <ul>
+	    <li>"firefox" as Firefox</li>
+	    <li>"mozilla" as Mozilla</li>
+	    <li>"msie" as Internet Explorer</li>
+	    <li>"opera" as Opera</li>
+	    <li>"safari" as Safari</li>
+	</ul>
+</p>
+
+<a name=Tian.createUniqueID></a>
+<h3><code>Tian.createUniqueID(prefix)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>prefix</span> - <code>string</code>, prefix of the id, defaults to "txID_"
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Create a unique identifier for this session.  
+	        Each time this function is called, a counter is incremented. The return will be the optional prefix 
+	        (defaults to "txID_") appended with the counter value.</p>
+
+<a name=Tian.getScriptLocation></a>
+<h3><code>Tian.getScriptLocation(file, doc)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>file</span> - <code>string</code>, script file name, defaults to the file which contains this function<br />
+    <span class=parameters>doc</span> - <code>document</code>, context document, defaults to current document
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Returns the script file location. The doc is a context document. 
+    If file not set, returns the location of <code>Tian</code> script file.</p>
+
+<a name=Tian.getElement></a>
+<h3><code>Tian.getElement(args)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>args</span> - <code>string | array | DOMElement</code>
+</p>
+<p><b>Returns: </b><code>DOMElement | array</code></p>
+<p>Returns DOMElement(s) of given id(s), DOMElement(s).</p>
+
+<a name=Tian.getStyle></a>
+<h3><code>Tian.getStyle(element, style)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>element</span> - <code>string | DOMElement</code>, element id or element object<br />
+    <span class=parameters>style</span> - <code>string</code>, style name
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Returns the style value of an element.</p>
+
+<a name=Tian.getViewportElement></a>
+<h3><code>Tian.getViewportElement()</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b>
+</p>
+<p><b>Returns: </b><code>DOMElement</code></p>
+<p>Returns die viewport element of the document. The viewport element is
+            usually <code>document.documentElement</code>, except in IE, where it is either
+            <code>document.body</code> or <code>document.documentElement</code>, depending on the document's
+            compatibility mode (see
+            <a target=_blank href=http://code.google.com/p/doctype/wiki/ArticleClientViewportElement>
+            http://code.google.com/p/doctype/wiki/ArticleClientViewportElement</a>).</p>
+
+<a name=Tian.pagePosition></a>
+<h3><code>Tian.pagePosition()</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b>
+</p>
+<p><b>Returns: </b><code>array</code></p>
+<p>Calculates the position of an element on the page.
+		    Returns a two item array, Left value then Top value.
+		    (see <a target=_blank href=http://code.google.com/p/doctype/wiki/ArticlePageOffset>
+		    http://code.google.com/p/doctype/wiki/ArticlePageOffset</a>)</p>
+
+<a name=Tian.extend></a>
+<h3><code>Tian.extend(dest, source)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>dest</span> - <code>object</code>, destination object<br />
+    <span class=parameters>source</span> - <code>object</code>, source object
+</p>
+<p><b>Returns: </b><code>object</code></p>
+<p>Copy all properties of a source object to a destination object. 
+		    Modifies the passed in destination object. 
+		    Any properties on the source object that are set to undefined will not be (re)set on the destination object.
+		    Returns the destination object.</p>
+
+<a name=Tian.applyDefaults></a>
+<h3><code>Tian.applyDefaults(to, from)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>to</span> - <code>object</code><br />
+    <span class=parameters>from</span> - <code>object</code>
+</p>
+<p><b>Returns: </b><code>object</code></p>
+<p>Takes an object and copies any properties that don't exist from another properties, 
+		    by analogy with <code>Tian.extend</code>. Returns a reference to the to object.
+		    Note that the to argument is modified in place and returned by this function.</p>
+
+<a name=Tian.inherit></a>
+<h3><code>Tian.inherit(C, P)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>C</span> - <code>class</code>, the class that inherits<br />
+    <span class=parameters>P</span> - <code>class</code>, the superclass to inherit from
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>In addition to the mandatory C and P parameters, an arbitrary number of
+     objects can be passed, which will extend C.</p>
+
+<a name=Tian.md5></a>
+<h3><code>Tian.md5(value, key, raw)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>value</span> - <code>string</code><br />
+    <span class=parameters>key</span> - <code>string</code>, optional key string<br />
+    <span class=parameters>raw</span> - <code>boolean</code>, optional, calculate raw MD5 hash or not
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>JavaScript MD5 implementation. Examples:</p>
+<p>Calculate the (hex-encoded) MD5 hash of a given string value<br />
+&nbsp;&nbsp;<code>var hash = Tian.md5("value")</code></p>
+<p>Calculate the (hex-encoded) HMAC-MD5 hash of a given string value and key<br />
+&nbsp;&nbsp;<code>var hash = Tian.md5("value", "key")</code></p>
+<p>Calculate the raw MD5 hash of a given string value<br />
+&nbsp;&nbsp;<code>var hash = Tian.md5("value", null, true)</code></p>
+<p>Calculate the raw HMAC-MD5 hash of a given string value<br />
+&nbsp;&nbsp;<code>var hash = Tian.md5("value", "key", true)</code></p>
+
+<a name=Tian.require></a>
+<h3><code>Tian.require(urls, callback, doc)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>urls</span> - <code>string | array</code>, script file URL(s)<br />
+    <span class=parameters>callback</span> - <code>function</code>, optional<br />
+    <span class=parameters>doc</span> - <code>document</code>, optional context, defaults to current <code>document</code>
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Loads scirpt file(s) into doc context. The callback will be executed after all files loaded.
+		    If a doc is not set, then load all files into current <code>document</code>.</p>
+
+<a name=Tian.requireCSS></a>
+<h3><code>Tian.requireCSS(url, callback, doc)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>url</span> - <code>string</code>, stylesheet file URL<br />
+    <span class=parameters>callback</span> - <code>function</code>, optional<br />
+    <span class=parameters>doc</span> - <code>document</code>, optional context, defaults to current <code>document</code>
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Loads css file into doc context. The callback will be executed after the file loaded.
+		    If a doc is not set, then load file into current <code>document</code>.</p>
+
+<a name=Tian.removeCSS></a>
+<h3><code>Tian.removeCSS(url, callback, doc)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>url</span> - <code>string</code>, stylesheet file URL<br />
+    <span class=parameters>callback</span> - <code>function</code>, optional<br />
+    <span class=parameters>doc</span> - <code>document</code>, optional context, defaults to current <code>document</code>
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Removes css file from doc context. The callback will be executed after the file removed.
+		    If a doc is not set, then remove file from current <code>document</code>.</p>
+
+<a name=Tian.replaceCSS></a>
+<h3><code>Tian.replaceCSS(oldurl, newurl, callback, doc)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>oldurl</span> - <code>string</code>, stylesheet file which will be removed<br />
+    <span class=parameters>newurl</span> - <code>string</code>, stylesheet file which will be loaded<br />
+    <span class=parameters>callback</span> - <code>function</code>, optional<br />
+    <span class=parameters>doc</span> - <code>document</code>, optional context, defaults to current <code>document</code>
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>Replaces css file within doc context, and execute the callback.
+		    If a doc is not set, then replaces files in current <code>document</code>.</p>
+
+</div>
+
+</body>
+</html>

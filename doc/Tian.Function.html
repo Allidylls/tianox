@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+<body>
+<div class=content>
+
+<div class=reftitle>Tian.Function</div>
+<p>Sub namespace contains convenience functions for function manipulation.</p>
+
+<a name=Tian.Function.bind></a>
+<h3><code>Tian.Function.bind(func, obj)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>func</span> - <code>function</code><br />
+    <span class=parameters>obj</span> - <code>object</code>
+</p>
+<p><b>Returns: </b><code>function</code></p>
+<p>Returns a closure with <code>this</code> set to the passed in object.
+		    Bind a function to an object. Method to easily create closures with <code>this</code> altered.</p>
+
+<a name=Tian.Function.bindAsEventListener></a>
+<h3><code>Tian.Function.bindAsEventListener(func, obj)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b><br />
+    <span class=parameters>func</span> - <code>function</code><br />
+    <span class=parameters>obj</span> - <code>object</code>
+</p>
+<p><b>Returns: </b><code>function</code></p>
+<p>Bind a function to an object, and configure it to receive the event object as first parameter when called. </p>
+
+<a name=Tian.Function.False></a>
+<h3><code>Tian.Function.False()</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Returns boolean false. A simple function to that just does <code>return false</code>.
+    We use this to avoid attaching anonymous functions to DOM event handlers, which causes "issues" on IE&lt;8.</p>
+
+<a name=Tian.Function.True></a>
+<h3><code>Tian.Function.True()</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Returns boolean true. A simple function to that just does <code>return true</code>.
+    We use this to avoid attaching anonymous functions to DOM event handlers, which causes "issues" on IE&lt;8.</p>
+
+<a name=Tian.Function.Void></a>
+<h3><code>Tian.Function.Void()</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters: </b>
+</p>
+<p><b>Returns: </b><code>undefined</code></p>
+<p>A reusable function that returns <code>undefined</code>.</p>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tian Web Desktop Framework</title>
+    <link rel=stylesheet type=text/css href=./style.css>
+</head>
+<body>
+<div class=content>
+
+<div class=reftitle>Tian.String</div>
+<p>Sub namespace contains convenience functions for string manipulation.</p>
+
+<a name=Tian.String.startsWith></a>
+<h3><code>Tian.String.startsWith(str, sub)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>str</span> - <code>string</code><br />
+    <span class=parameters>sub</span> - <code>string</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Returns whether the first string starts with the second.</p>
+
+<a name=Tian.String.contains></a>
+<h3><code>Tian.String.contains(str, sub)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>str</span> - <code>string</code><br />
+    <span class=parameters>sub</span> - <code>string</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Returns whether the first string contains the second.</p>
+
+<a name=Tian.String.trim></a>
+<h3><code>Tian.String.trim(str)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>str</span> - <code>string</code>
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Returns a trimmed version of the string with all leading and trailing spaces removed.</p>
+
+<a name=Tian.String.camelize></a>
+<h3><code>Tian.String.camelize(str)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>str</span> - <code>string</code>
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Returns the camelized string. Camel-case a hyphenated string. 
+        Ex. "chicken-head" becomes "chickenHead", and "-chicken-head" becomes "ChickenHead".</p>
+
+<a name=Tian.String.format></a>
+<h3><code>Tian.String.format(template, context, args)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>template</span> - <code>string</code><br />
+    <span class=parameters>context</span> - <code>object</code>, optional object<br />
+    <span class=parameters>args</span> - <code>array</code>, optional arguments
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Given a string with tokens in the form <code>${token}</code>, 
+	return a string with tokens replaced with properties from the given context object.
+    Represent a literal <code>${</code> by doubling it, e.g. <code>${${</code>.</p>
+<p>A template has the form <code>literal ${token}</code> where the token will be replaced by the value of
+	<code>context["token"]</code>.
+    The context parameter is an optional object with properties corresponding to the tokens in the format string.
+    If no context is sent, the <code>window</code> object will be used.</p>
+<p>The args is an optional arguments to pass to any functions found in the context.
+    If a context property is a function,
+    the token will be replaced by the return from the function called with these arguments.</p>
+
+<a name=Tian.String.isNumeric></a>
+<h3><code>Tian.String.isNumeric(str)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>str</span> - <code>string</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Returns whether a string contains only a number. </p>
+<p>Examples:</p>
+<p>&nbsp;&nbsp;<code>Tian.String.isNumeric("6.02e23") // true</code><br />
+   &nbsp;&nbsp;<code>Tian.String.isNumeric("12 dozen") // false</code><br />
+   &nbsp;&nbsp;<code>Tian.String.isNumeric("4") // true</code><br />
+   &nbsp;&nbsp;<code>Tian.String.isNumeric(" 4 ") // false</code></p>
+
+<a name=Tian.String.numericIf></a>
+<h3><code>Tian.String.numericIf(value)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>value</span> - <code>number | string</code>
+</p>
+<p><b>Returns: </b><code>number | string</code></p>
+<p>Returns a Number if the passed value is a number, a String otherwise.</p>
+
+<a name=Tian.String.isEmail></a>
+<h3><code>Tian.String.isEmail(str)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>str</span> - <code>string</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Determine whether a string is an email address.</p>
+
+<a name=Tian.String.isURL></a>
+<h3><code>Tian.String.isURL(str)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>str</span> - <code>string</code>
+</p>
+<p><b>Returns: </b><code>boolean</code></p>
+<p>Determine whether a string is an URL.</p>
+
+<a name=Tian.String.sprintf></a>
+<h3><code>Tian.String.sprintf(format, data)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>format</span> - <code>string</code>, format string<br />
+    <span class=parameters>data</span> - <code>string | number</code>, optional data
+</p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Javascript implematatioan of C/C++ <code>sprintf</code>.</p>
+<p>Examples:</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.String.sprintf("%01.2f", 123.1) // "123.10"</code><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.String.sprintf("[%10s]", "monkey") // "[    monkey]"</code><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.String.sprintf("%d", 123456789012345) // "123456789012345"</code>
+</p>
+
+<a name=Tian.String.sscanf></a>
+<h3><code>Tian.String.sscanf(str, format)</code></h3>
+<p><b>Static method</b></p>
+<p>
+    <b>Parameters:</b><br />
+    <span class=parameters>str</span> - <code>string</code>, formatted string with data<br />
+    <span class=parameters>format</span> - <code>string</code>
+</p>
+<p><b>Returns: </b><code>array</code></p>
+<p>Javascript implematatioan of C/C++ <code>sscanf</code>.
+    Returns an array of data according to the format string.</p>
+<p>Examples:</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.String.sscanf("ABC/235001", "ABC/%d") // [235001]</code><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<code>Tian.String.sscanf("10--20", "%2d--%2d") // [10, 20]</code>
+</p>
+
+</div>
+
+</body>
+</html>
