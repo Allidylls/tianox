@@ -28,6 +28,7 @@
     <b>Parameters: </b><br />
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>Close the window and destroy all child nodes.</p>
 
 <a name=.select></a>
 <h3><code>.select()</code></h3>
@@ -36,6 +37,7 @@
     <b>Parameters: </b><br />
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>Show the window and move it to top.</p>
 
 <a name=.show></a>
 <h3><code>.show()</code></h3>
@@ -44,6 +46,7 @@
     <b>Parameters: </b><br />
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>Show the window from hidden state.</p>
 
 <a name=.hide></a>
 <h3><code>.hide()</code></h3>
@@ -52,6 +55,7 @@
     <b>Parameters: </b><br />
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>Hide the window to make it unvisible.</p>
 
 <a name=.isMovable></a>
 <h3><code>.isMovable()</code></h3>
@@ -59,7 +63,7 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>boolean</code></p>
 
 <a name=.isAlwaysOnTop></a>
 <h3><code>.isAlwaysOnTop()</code></h3>
@@ -67,7 +71,7 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>boolean</code></p>
 
 <a name=.isSelected></a>
 <h3><code>.isSelected()</code></h3>
@@ -75,23 +79,28 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>boolean</code></p>
 
 <a name=.loadUrlX></a>
-<h3><code>.loadUrlX()</code></h3>
+<h3><code>.loadUrlX(url, onload)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>url</span> - <code>string</code><br />
+    <span class=parameters>onload</span> - <code>function</code>, optional
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>Load a URL as content. The optinal onload function will be called when done the loading.</p>
 
 <a name=.showLoading></a>
-<h3><code>.showLoading()</code></h3>
+<h3><code>.showLoading(show)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>show</span> - <code>boolean</code>
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>Show or hide the loading image in title bar of the window.</p>
 
 <a name=.autoSize></a>
 <h3><code>.autoSize()</code></h3>
@@ -100,6 +109,7 @@
     <b>Parameters: </b><br />
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>Auto size the window to fit its content dimension.</p>
 
 <a name=.moveToCenter></a>
 <h3><code>.moveToCenter()</code></h3>
@@ -108,6 +118,7 @@
     <b>Parameters: </b><br />
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>Move the window to the center of window manager's container.</p>
 
 <a name=.getId></a>
 <h3><code>.getId()</code></h3>
@@ -115,7 +126,8 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Get the unique id of window.</p>
 
 <a name=.getTitle></a>
 <h3><code>.getTitle()</code></h3>
@@ -123,7 +135,7 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>string</code></p>
 
 <a name=.getCurrentUrl></a>
 <h3><code>.getCurrentUrl()</code></h3>
@@ -131,7 +143,7 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>string</code></p>
 
 <a name=.getState></a>
 <h3><code>.getState()</code></h3>
@@ -139,7 +151,9 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>string</code></p>
+<p>Get current state of window. The state of window can be one of: window, icon, maximized, hidden.
+    The 'icon' state is a minimized state, for the window is iconized to the taskbar.</p>
 
 <a name=.getManager></a>
 <h3><code>.getManager()</code></h3>
@@ -147,23 +161,27 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>object</code>, instance of <code>Tian.Winager</code></p>
 
 <a name=.getElement></a>
-<h3><code>.getElement()</code></h3>
+<h3><code>.getElement(wid)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>wid</span> - <code>string</code>, element id in 'data-wid' attribute
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>DOMElement</code> || <code>undefined</code></p>
 
 <a name=.getComponent></a>
-<h3><code>.getComponent()</code></h3>
+<h3><code>.getComponent(id)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>id</span> - <code>string</code>, defined component id
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>DOMElement</code> || <code>undefined</code></p>
+<p>The component id can be one of:
+    titlebar, window, content, close, iconizer, maximizer, loading, zoomer and icon.</p>
 
 <a name=.getWidth></a>
 <h3><code>.getWidth()</code></h3>
@@ -171,7 +189,8 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Returns the window width.</p>
 
 <a name=.getHeight></a>
 <h3><code>.getHeight()</code></h3>
@@ -179,7 +198,8 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Returns the window height.</p>
 
 <a name=.getX></a>
 <h3><code>.getX()</code></h3>
@@ -187,7 +207,8 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Returns the window's horizental position in window manager's container.</p>
 
 <a name=.getY></a>
 <h3><code>.getY()</code></h3>
@@ -195,7 +216,8 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Returns the window's vertical position in window manager's container.</p>
 
 <a name=.getContentWidth></a>
 <h3><code>.getContentWidth()</code></h3>
@@ -203,7 +225,8 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Returns the width of window content.</p>
 
 <a name=.getContentHeight></a>
 <h3><code>.getContentHeight()</code></h3>
@@ -211,7 +234,8 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>number</code></p>
+<p>Returns the height of window content.</p>
 
 <a name=.getContainer></a>
 <h3><code>.getContainer()</code></h3>
@@ -219,7 +243,8 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>DOMElement</code></p>
+<p>Returns the container DOM element of window manager.</p>
 
 <a name=.getContainerWidth></a>
 <h3><code>.getContainerWidth()</code></h3>
@@ -227,7 +252,7 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>number</code></p>
 
 <a name=.getContainerHeight></a>
 <h3><code>.getContainerHeight()</code></h3>
@@ -235,77 +260,94 @@
 <p>
     <b>Parameters: </b><br />
 </p>
-<p><b>Returns: </b><code>undefined</code></p>
+<p><b>Returns: </b><code>number</code></p>
 
 <a name=.setState></a>
-<h3><code>.setState()</code></h3>
+<h3><code>.setState(state)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>state</span> - <code>string</code>, maximized, window, icon or hidden
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>To maximize, minimize, hide or show the window by calling this method.</p>
 
 <a name=.setSize></a>
-<h3><code>.setSize()</code></h3>
+<h3><code>.setSize(width, height)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>width</span> - <code>number</code><br />
+    <span class=parameters>height</span> - <code>number</code>
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
 
 <a name=.setPosition></a>
-<h3><code>.setPosition()</code></h3>
+<h3><code>.setPosition(x, y)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>x</span> - <code>number</code><br />
+    <span class=parameters>y</span> - <code>number</code>
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>To move the window to target position in windows container.</p>
 
 <a name=.setContent></a>
-<h3><code>.setContent()</code></h3>
+<h3><code>.setContent(html)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>html</span> - <code>string</code>, HTML string
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>To show given HTML content in the window.</p>
 
 <a name=.setTitle></a>
-<h3><code>.setTitle()</code></h3>
+<h3><code>.setTitle(title)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>title</span> - <code>string</code>
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>To set the text in title bar of the window.</p>
 
 <a name=.setIconImage></a>
-<h3><code>.setIconImage()</code></h3>
+<h3><code>.setIconImage(url)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>url</span> - <code>string</code>
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>To set the icon image in title bar of the window.</p>
 
 <a name=.setCloseConfirm></a>
-<h3><code>.setCloseConfirm()</code></h3>
+<h3><code>.setCloseConfirm(message)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>message</span> - <code>string</code>
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
+<p>If the confirm message is set, it will be prompted before the window close.</p>
 
 <a name=.setMovable></a>
-<h3><code>.setMovable()</code></h3>
+<h3><code>.setMovable(movable)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>movable</span> - <code>boolean</code>
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
 
 <a name=.setAlwaysOnTop></a>
-<h3><code>.setAlwaysOnTop()</code></h3>
+<h3><code>.setAlwaysOnTop(ontop)</code></h3>
 <p><b>Instance method</b></p>
 <p>
     <b>Parameters: </b><br />
+    <span class=parameters>ontop</span> - <code>boolean</code>
 </p>
 <p><b>Returns: </b><code>undefined</code></p>
 

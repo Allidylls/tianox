@@ -1,5 +1,7 @@
-xxxx-xx-xx, Version 1.1
+2014-05-07, Version 1.1
 
+* Change license from LGPL to MIT License
++ Add documents
 + Add method .open to Tian.App instances
 + Add method .open to Tian.Widget.MainPanel instances
 + Add namespace Tian.Temp for dynamic resources accessing
@@ -9,5 +11,3 @@ xxxx-xx-xx, Version 1.1
 - Remove dblclick event handler of window taskbar icon
 
 2012-12-05, Version 1.0
-
-

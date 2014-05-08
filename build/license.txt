@@ -1,8 +1,8 @@
 //=======================================================================================================
 // Tian Web Desktop Framework
 //
-// Free use of this software is granted under the terms of the GNU Lesser General Public License (LGPL).
-// For details see: https://raw.github.com/Allidylls/tianox/master/LICENSE
+// Free use of this software is granted under the terms of the MIT License.
+// For details see: https://raw.github.com/Allidylls/tianox/master/LICENSE.
 //
 // Contains portions of Require.js: https://raw.github.com/jrburke/requirejs/master/LICENSE
 // Contains portions of OpenLayers.js: http://svn.openlayers.org/trunk/openlayers/license.txt
